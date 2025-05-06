@@ -1,8 +1,0 @@
-<RCC>
-  <qresource prefix="logoLogin">
-    <file>CVILogin.png</file>
-  </qresource>
-  <qresource prefix="logomini">
-    <file>CVIcaja.png</file>
-  </qresource>
-</RCC>

@@ -13,17 +13,33 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="resources_rc.qrc">
+    <normaloff>:/icon_small/CVIcaja.png</normaloff>:/icon_small/CVIcaja.png</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="maximumSize">
+    <size>
+     <width>680</width>
+     <height>500</height>
+    </size>
+   </property>
    <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>681</width>
-      <height>501</height>
+      <width>680</width>
+      <height>500</height>
      </rect>
     </property>
     <property name="minimumSize">
+     <size>
+      <width>680</width>
+      <height>500</height>
+     </size>
+    </property>
+    <property name="maximumSize">
      <size>
       <width>680</width>
       <height>500</height>
@@ -57,7 +73,7 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgba(0,0,0,0);</string>
+       <string notr="true">background-color:rgba(0,0,0,0);color:black</string>
       </property>
       <property name="text">
        <string>Contraseña:</string>
@@ -82,59 +98,10 @@
        <enum>Qt::AutoText</enum>
       </property>
       <property name="pixmap">
-       <pixmap>CVILogin.png</pixmap>
+       <pixmap resource="resources_rc.qrc">:/icon_big/CVILogin.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="Pass_le">
-      <property name="geometry">
-       <rect>
-        <x>200</x>
-        <y>320</y>
-        <width>291</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>15</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color:rgb(192, 191, 188);border-radius:10px
-</string>
-      </property>
-      <property name="inputMethodHints">
-       <set>Qt::ImhHiddenText|Qt::ImhNoAutoUppercase|Qt::ImhNoPredictiveText|Qt::ImhSensitiveData</set>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="echoMode">
-       <enum>QLineEdit::Password</enum>
-      </property>
-     </widget>
-     <widget class="QLabel" name="user_label">
-      <property name="geometry">
-       <rect>
-        <x>210</x>
-        <y>200</y>
-        <width>80</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>12</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color:rgba(0, 0, 0, 0)</string>
-      </property>
-      <property name="text">
-       <string>Usuario:</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="User_le">
@@ -152,10 +119,62 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(192, 191, 188);border-radius:10px;</string>
+       <string notr="true">background-color:rgb(192, 191, 188);border-radius:10px
+;color:black</string>
+      </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhNone</set>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="echoMode">
+       <enum>QLineEdit::Normal</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="user_label">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>200</y>
+        <width>80</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:rgba(0, 0, 0, 0);color:black</string>
+      </property>
+      <property name="text">
+       <string>Usuario:</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="Pass_le">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>320</y>
+        <width>291</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>15</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:rgb(192, 191, 188);border-radius:10px;color:black</string>
       </property>
       <property name="text">
        <string extracomment="Consultorio1, Consultorio2"/>
+      </property>
+      <property name="echoMode">
+       <enum>QLineEdit::Password</enum>
       </property>
      </widget>
      <widget class="QLabel" name="wrong_up_label">
@@ -173,7 +192,7 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgba(0, 0, 0, 0)</string>
+       <string notr="true">background-color:rgba(0, 0, 0, 0);color:black</string>
       </property>
       <property name="text">
        <string>usuario ó contraseña incorrectos</string>
@@ -247,6 +266,14 @@
        <bool>false</bool>
       </property>
      </widget>
+     <zorder>pass_label</zorder>
+     <zorder>logo_label</zorder>
+     <zorder>User_le</zorder>
+     <zorder>user_label</zorder>
+     <zorder>wrong_up_label</zorder>
+     <zorder>login_btn</zorder>
+     <zorder>exit_btn</zorder>
+     <zorder>Pass_le</zorder>
     </widget>
     <widget class="QWidget" name="Caja">
      <property name="autoFillBackground">
@@ -255,27 +282,103 @@
      <property name="styleSheet">
       <string notr="true">background-color:rgb(222, 221, 218)</string>
      </property>
-     <widget class="QTabWidget" name="tabWidget">
+     <widget class="QTabWidget" name="tab_caja">
       <property name="geometry">
        <rect>
-        <x>50</x>
-        <y>140</y>
-        <width>591</width>
-        <height>311</height>
+        <x>30</x>
+        <y>110</y>
+        <width>621</width>
+        <height>371</height>
        </rect>
       </property>
-      <property name="currentIndex">
-       <number>0</number>
+      <property name="styleSheet">
+       <string notr="true">background-color:rgba(255, 255, 255, 0);background-color:rgba(0, 0, 0, 0);background-color:rgba(255, 255, 255, 255);color:black</string>
       </property>
-      <widget class="QWidget" name="tab">
+      <property name="currentIndex">
+       <number>2</number>
+      </property>
+      <widget class="QWidget" name="tab_venta">
        <attribute name="title">
-        <string>Tab 1</string>
+        <string>Venta</string>
        </attribute>
       </widget>
-      <widget class="QWidget" name="tab_2">
+      <widget class="QWidget" name="faltantes_tab">
        <attribute name="title">
-        <string>Tab 2</string>
+        <string>Faltantes</string>
        </attribute>
+       <widget class="QTableView" name="table_falt">
+        <property name="geometry">
+         <rect>
+          <x>5</x>
+          <y>1</y>
+          <width>611</width>
+          <height>341</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tab_inventario">
+       <attribute name="title">
+        <string>Inventario</string>
+       </attribute>
+       <widget class="QTableView" name="table_inv">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>60</y>
+          <width>601</width>
+          <height>271</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="inv_le">
+        <property name="geometry">
+         <rect>
+          <x>300</x>
+          <y>10</y>
+          <width>311</width>
+          <height>31</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="inv_comboBox">
+        <property name="geometry">
+         <rect>
+          <x>110</x>
+          <y>10</y>
+          <width>181</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <item>
+         <property name="text">
+          <string>productos</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>servicios</string>
+         </property>
+        </item>
+       </widget>
+       <widget class="QLabel" name="label_search">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>10</y>
+          <width>71</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>15</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Buscar:</string>
+        </property>
+       </widget>
       </widget>
      </widget>
      <widget class="QLabel" name="Logo_label_2">
@@ -291,7 +394,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap>CVIcaja.png</pixmap>
+       <pixmap resource="resources_rc.qrc">:/icon_small/CVIcaja.png</pixmap>
       </property>
      </widget>
     </widget>
@@ -299,7 +402,7 @@
      <widget class="QPushButton" name="exit_btn_2">
       <property name="geometry">
        <rect>
-        <x>0</x>
+        <x>10</x>
         <y>450</y>
         <width>151</width>
         <height>31</height>
@@ -392,7 +495,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap>CVIcaja.png</pixmap>
+       <pixmap>../../../.designer/backup/CVIcaja.png</pixmap>
       </property>
      </widget>
      <widget class="QLabel" name="mvz_lbl">
@@ -410,7 +513,7 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgba(0,0,0,0);</string>
+       <string notr="true">background-color:rgba(0,0,0,0);background-color:rgba(0, 0, 0, 0);color:black</string>
       </property>
       <property name="text">
        <string>Doctor(a):</string>
@@ -431,111 +534,11 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgba(0,0,0,0);</string>
+       <string notr="true">background-color:rgba(0,0,0,0);background-color:rgba(0, 0, 0, 0);color:black</string>
       </property>
       <property name="text">
        <string>Paciente:</string>
       </property>
-     </widget>
-     <widget class="QComboBox" name="comboBox">
-      <property name="geometry">
-       <rect>
-        <x>155</x>
-        <y>130</y>
-        <width>311</width>
-        <height>29</height>
-       </rect>
-      </property>
-      <item>
-       <property name="text">
-        <string>Consulta</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Citología</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Corte de uñas</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Inseminación</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Extracción de sangre</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Tratamiento $100</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Tratamiento $200</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Tratamiento $250</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Tratamiento $300</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Raspado de piel</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Prueba de Parvovirus</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Prueba Distemper</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Prueba Leucemia</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Ultrasonido</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Vacuna multiple</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Vacuna bordetela</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Vacuna Leucemia</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Vacuna Rabia</string>
-       </property>
-      </item>
      </widget>
      <widget class="QLabel" name="label">
       <property name="geometry">
@@ -552,7 +555,7 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgba(0,0,0,0);</string>
+       <string notr="true">background-color:rgba(0,0,0,0);background-color:rgba(0, 0, 0, 0);color:black</string>
       </property>
       <property name="text">
        <string>Servicio:</string>
@@ -610,10 +613,10 @@
      <widget class="QListWidget" name="listWidget">
       <property name="geometry">
        <rect>
-        <x>50</x>
-        <y>190</y>
-        <width>581</width>
-        <height>221</height>
+        <x>10</x>
+        <y>180</y>
+        <width>651</width>
+        <height>231</height>
        </rect>
       </property>
      </widget>
@@ -651,12 +654,23 @@
        <bool>false</bool>
       </property>
      </widget>
+     <widget class="QLineEdit" name="lineEdit">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>130</y>
+        <width>391</width>
+        <height>31</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>
  </widget>
  <resources>
-  <include location="loginrf.qrc"/>
+  <include location="resources_rc.qrc"/>
+  <include location="../../../.designer/backup/resources_rc.qrc"/>
  </resources>
  <connections/>
 </ui>
