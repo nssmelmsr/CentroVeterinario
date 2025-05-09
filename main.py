@@ -57,6 +57,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.modelo_falt.setHeaderData(1, Qt.Horizontal, "Faltantes")
         self.modelo_falt.setHeaderData(2, Qt.Horizontal, "Proveedor")
         self.modelo_falt.setHeaderData(3, Qt.Horizontal, "Teléfono")
+        self.table_falt.resizeColumnsToContents()
+        
         
         if self.table_falt:
             self.table_falt.setModel(self.modelo_falt)
@@ -80,7 +82,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.modelo_inv.setHeaderData(1, Qt.Horizontal, "Producto")
             self.modelo_inv.setHeaderData(2, Qt.Horizontal, "Stock")
             self.modelo_inv.setHeaderData(3, Qt.Horizontal, "Precio")
-        
+            self.table_inv.resizeColumnsToContents()
+
             if self.table_inv:
                 self.table_inv.setModel(self.modelo_inv)
             else:

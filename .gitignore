@@ -5,10 +5,10 @@ cajawin.py
 consulwin.py
 tcpclient.py
 tcpserver.py
-connectDB_oirg.py
+connectDB_orig.py
 createSSH.py
-venv/
-__pycache__/
+venv/*
+__pycache__/*
 UI/CVI_093759.svg
 UI/consul.ui
 UI/cajaUI.ui
