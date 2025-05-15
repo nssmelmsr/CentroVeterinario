@@ -2,7 +2,10 @@
   <qresource prefix="icon_small">
     <file>CVIcaja.png</file>
   </qresource>
+  <qresource prefix="icon_mid">
+    <file>LogoMid.png</file>
+  </qresource>
   <qresource prefix="icon_big">
-    <file>CVILogin.png</file>
+    <file>LogoBig.png</file>
   </qresource>
 </RCC>
