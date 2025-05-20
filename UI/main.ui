@@ -64,7 +64,7 @@
      <string notr="true">background-color:rgb(222, 221, 218)</string>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="Login">
      <property name="autoFillBackground">
@@ -589,7 +589,7 @@
      <widget class="QPushButton" name="remove_btn">
       <property name="geometry">
        <rect>
-        <x>660</x>
+        <x>630</x>
         <y>820</y>
         <width>131</width>
         <height>31</height>
@@ -623,7 +623,7 @@
      <widget class="QPushButton" name="add_btn">
       <property name="geometry">
        <rect>
-        <x>450</x>
+        <x>810</x>
         <y>820</y>
         <width>131</width>
         <height>31</height>
@@ -705,19 +705,6 @@
        </property>
       </item>
      </widget>
-     <widget class="QTableView" name="table_cuenta">
-      <property name="geometry">
-       <rect>
-        <x>810</x>
-        <y>240</y>
-        <width>391</width>
-        <height>521</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color:black;</string>
-      </property>
-     </widget>
      <widget class="QTableView" name="busca_cuenta">
       <property name="geometry">
        <rect>
@@ -790,6 +777,35 @@
         <string>servicios</string>
        </property>
       </item>
+     </widget>
+     <widget class="QLabel" name="wrong_pet">
+      <property name="geometry">
+       <rect>
+        <x>330</x>
+        <y>70</y>
+        <width>281</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:red</string>
+      </property>
+      <property name="text">
+       <string>Ingrese nombre de mascota o propietario</string>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="table_cuenta">
+      <property name="geometry">
+       <rect>
+        <x>800</x>
+        <y>240</y>
+        <width>401</width>
+        <height>521</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:black;</string>
+      </property>
      </widget>
     </widget>
    </widget>
