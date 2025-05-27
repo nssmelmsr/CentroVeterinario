@@ -247,7 +247,7 @@ class Ui_MainWindow(object):
         self.table_cuenta.setStyleSheet(u"color:black")
         self.stackedWidget.addWidget(self.Consul)
         MainWindow.setCentralWidget(self.centralwidget)
-
+        
         self.retranslateUi(MainWindow)
 
         self.stackedWidget.setCurrentIndex(2)
