@@ -1,8 +1,6 @@
 *.txt
 *.orig
 *.cnf
-cajawin.py
-consulwin.py
 tcpclient.py
 tcpserver.py
 connectDB_orig.py
@@ -13,3 +11,5 @@ UI/CVI_093759.svg
 UI/consul.ui
 UI/cajaUI.ui
 UI/login.ui
+cuentas/*
+.cuentas_resp/*
