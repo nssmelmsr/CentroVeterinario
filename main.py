@@ -5,7 +5,7 @@ from PySide6.QtCore import Qt
 from mainwindow import Ui_MainWindow
 from cajawin import caja_win
 from consulwin import ConsWindow
-import connectDB
+import connectDB_orig
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -32,14 +32,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if (self.Login_combobox.currentText() == 'Consultorio'): #and (self.Pass_le.text() == 'consul123')) :
             self.stackedWidget.setCurrentIndex(2)
             print('conectado como consultorio')
-            connectDB.conectarDB()                     ### Database
+            connectDB_orig.conectarDB()                     ### Database
             self.consul_win
 
 
         elif (self.Login_combobox.currentText() == 'Caja'): #and (self.Pass_le.text() == 'caja123')) :
             self.stackedWidget.setCurrentIndex(1)
             print("conectado como caja")
-            connectDB.conectarDB()                     ### Database
+            connectDB_orig.conectarDB()                     ### Database
             self.caja_win
             
         

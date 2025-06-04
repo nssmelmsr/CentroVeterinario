@@ -244,10 +244,15 @@ class Ui_MainWindow(object):
         self.table_cuenta = QTableWidget(self.Consul)
         self.table_cuenta.setObjectName(u"table_cuenta")
         self.table_cuenta.setGeometry(QRect(800, 240, 401, 521))
-        self.table_cuenta.setStyleSheet(u"color:black")
+        self.table_cuenta.setStyleSheet(u"color:black;")
+        self.label_total = QLabel(self.Consul)
+        self.label_total.setObjectName(u"label_total")
+        self.label_total.setGeometry(QRect(800, 770, 231, 31))
+        self.label_total.setFont(font2)
+        self.label_total.setStyleSheet(u"background-color:rgba(0, 0, 0, 0);color:black;")
         self.stackedWidget.addWidget(self.Consul)
         MainWindow.setCentralWidget(self.centralwidget)
-        
+
         self.retranslateUi(MainWindow)
 
         self.stackedWidget.setCurrentIndex(2)
@@ -312,9 +317,10 @@ class Ui_MainWindow(object):
 
         self.wrong_dr.setText(QCoreApplication.translate("MainWindow", u"Seleccione quien atendi\u00f3", None))
         self.label_cuenta.setText(QCoreApplication.translate("MainWindow", u"Cuenta:", None))
-        self.consul_comboBox.setItemText(0, QCoreApplication.translate("MainWindow", u"productos", None))
-        self.consul_comboBox.setItemText(1, QCoreApplication.translate("MainWindow", u"servicios", None))
+        self.consul_comboBox.setItemText(0, QCoreApplication.translate("MainWindow", u"servicios", None))
+        self.consul_comboBox.setItemText(1, QCoreApplication.translate("MainWindow", u"productos", None))
 
         self.wrong_pet.setText(QCoreApplication.translate("MainWindow", u"Ingrese nombre de mascota o propietario", None))
+        self.label_total.setText(QCoreApplication.translate("MainWindow", u"Total: $", None))
     # retranslateUi
 

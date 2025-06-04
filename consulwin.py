@@ -4,6 +4,8 @@ from PySide6.QtCore import Qt
 import datetime
 import json
 import shutil
+import os
+import socket
 
 class ConsWindow:
     def __init__(self,main_window):
@@ -12,6 +14,7 @@ class ConsWindow:
         self.ui = main_window # se guarda referencia a MainWindow
         self.columnas = ["Code","Item","Precio"]
         self.ui.send = []                                  ##### lista para el  consultorio
+        self.total = 0
 
         self.ui.exit_btn_2.clicked.connect(self.ui.close)    
 
@@ -21,6 +24,7 @@ class ConsWindow:
         self.ui.busq_consul_le.textChanged.connect(self.consul_search)
         self.ui.remove_btn.clicked.connect(self.remove_item)
         self.ui.send_btn.clicked.connect(self.mandar_cuenta)
+
 
     def consul_search(self):
         self.ui.wrong_dr.hide()
@@ -119,6 +123,10 @@ class ConsWindow:
                 item = QTableWidgetItem()
                 item.setData(Qt.EditRole, fila[columna]) #fila[columna]
                 self.ui.table_cuenta.setItem(i,j,item)
+        
+        self.total = sum(item["Precio"] for item in self.ui.send)
+        self.ui.label_total.setText("Total: $" + str(self.total))
+        
 
     def  mandar_cuenta(self):
         if self.ui.paciente_le.text() == "":
@@ -131,18 +139,50 @@ class ConsWindow:
             self.paciente = self.ui.paciente_le.text()
             self.medico = self.ui.mvz_comboBox.currentText()
             time = datetime.datetime.now()
-            filename = "Nota_" + time.strftime("%d") + time.strftime("%m") + time.strftime("%Y") + "_" + time.strftime("%H") + time.strftime("%M") + time.strftime("%S")
+            self.carpeta = time.strftime("%d") + "_" + time.strftime("%m") + "_" + time.strftime("%Y")
+            self.filename = "Nota_" + time.strftime("%H") + time.strftime("%M") + time.strftime("%S") + ".json"
+            if os.path.exists("cuentas/" + self.carpeta):
 
-            with open("cuentas/" + filename +  ".json", "w") as sendfile:
-                json.dump({
-                    "paciente" : self.paciente,
-                    "medico" : self.medico
-                },sendfile)
-                json.dump(self.ui.send,sendfile)
-                sendfile.close()
-            shutil.copy2("cuentas/"+filename+".json",".cuentas_resp/")
+                #with open("cuentas/" + filename +  ".json", "w") as sendfile:
+                with open("cuentas/" + self.carpeta + "/" + self.filename, "w") as sendfile:
+                    json.dump({
+                        "paciente" : self.paciente,
+                        "medico" : self.medico,
+                        "servicios" : self.ui.send,
+                        "Total" : self.total},sendfile)
+                    sendfile.close()
+                shutil.copy2("cuentas/" + self.carpeta + "/" +self.filename,".cuentas_resp/" + self.carpeta + "/")
+            else:
+                os.mkdir("cuentas/" + self.carpeta)
+                os.mkdir(".cuentas_resp/" + self.carpeta)
+                self.mandar_cuenta()
             self.ui.paciente_le.clear()
             self.ui.send.clear()
-            print(filename)
+            print(self.filename)
 
         self.redibujar_tabla()
+        self.tcp_client()
+    
+    def tcp_client(self):  
+        host = '192.168.1.76' ##IP de caja
+        port = 8080
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
+        # Connecting with Server 
+        sock.connect((host, port)) 
+  
+        #while True: 
+        try: 
+            # Reading file and sending data to server 
+            fi = open('cuentas/'+ self.carpeta +"/"+ self.filename, "r") 
+            data = fi.read() 
+            #if not data: 
+            #    break
+            while data: 
+                sock.send(str(data).encode()) 
+                data = fi.read() 
+            # File is closed after data is sent 
+           # fi.close() 
+            #exit()
+        except IOError:
+            print('no se encontró el archivo')
+        #sock.close()
