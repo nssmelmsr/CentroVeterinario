@@ -64,7 +64,7 @@
      <string notr="true">background-color:rgb(222, 221, 218)</string>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="Login">
      <property name="autoFillBackground">
@@ -306,15 +306,147 @@
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgba(255, 255, 255, 0);background-color:rgba(0, 0, 0, 0);background-color:rgba(255, 255, 255, 255);color:black</string>
+       <string notr="true">background-color:rgb(222, 221, 218);color:black</string>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_venta">
        <attribute name="title">
         <string>Venta</string>
        </attribute>
+       <widget class="QScrollArea" name="contenedor_cuentas">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>70</y>
+          <width>1161</width>
+          <height>591</height>
+         </rect>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="scrollAreaWidgetContents">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>1159</width>
+           <height>589</height>
+          </rect>
+         </property>
+         <widget class="QWidget" name="horizontalLayoutWidget">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>1151</width>
+            <height>581</height>
+           </rect>
+          </property>
+          <layout class="QHBoxLayout" name="HLayout">
+           <property name="leftMargin">
+            <number>2</number>
+           </property>
+           <property name="topMargin">
+            <number>1</number>
+           </property>
+           <property name="rightMargin">
+            <number>1</number>
+           </property>
+           <property name="bottomMargin">
+            <number>1</number>
+           </property>
+          </layout>
+         </widget>
+        </widget>
+       </widget>
+       <widget class="QLabel" name="label_search_2">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>20</y>
+          <width>70</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>15</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Buscar:</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="inv_le_2">
+        <property name="geometry">
+         <rect>
+          <x>200</x>
+          <y>20</y>
+          <width>491</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="contextMenuPolicy">
+         <enum>Qt::NoContextMenu</enum>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="inv_comboBox_2">
+        <property name="geometry">
+         <rect>
+          <x>90</x>
+          <y>20</y>
+          <width>101</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <item>
+         <property name="text">
+          <string>productos</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>servicios</string>
+         </property>
+        </item>
+       </widget>
+       <widget class="QPushButton" name="venta_btn">
+        <property name="geometry">
+         <rect>
+          <x>1020</x>
+          <y>20</y>
+          <width>121</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color:rgb(53, 132, 228); color: rgb(246, 245, 244); border-radius:10px;</string>
+        </property>
+        <property name="text">
+         <string>Nueva Venta</string>
+        </property>
+        <property name="shortcut">
+         <string>Return</string>
+        </property>
+        <property name="autoRepeat">
+         <bool>false</bool>
+        </property>
+        <property name="default">
+         <bool>false</bool>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="tab_inventario">
        <attribute name="title">
@@ -401,6 +533,63 @@
        <attribute name="title">
         <string>Estética</string>
        </attribute>
+       <widget class="QScrollArea" name="contenedor_esetetica">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>70</y>
+          <width>1161</width>
+          <height>591</height>
+         </rect>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="scrollAreaWidgetContents_2">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>1159</width>
+           <height>589</height>
+          </rect>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QPushButton" name="add_estetica_btn">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>20</y>
+          <width>131</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color:rgb(53, 132, 228); color: rgb(246, 245, 244); border-radius:10px;</string>
+        </property>
+        <property name="text">
+         <string>Añadir</string>
+        </property>
+        <property name="shortcut">
+         <string>Return</string>
+        </property>
+        <property name="autoRepeat">
+         <bool>false</bool>
+        </property>
+        <property name="default">
+         <bool>false</bool>
+        </property>
+       </widget>
       </widget>
      </widget>
      <widget class="QLabel" name="Logo_label_2">

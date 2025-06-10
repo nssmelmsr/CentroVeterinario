@@ -3,15 +3,22 @@
 ################################################################################
 ## Form generated from reading UI file 'main.ui'
 ##
-## Created by: Qt User Interface Compiler version 5.15.13
+## Created by: Qt User Interface Compiler version 6.9.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide6.QtCore import *  # type: ignore
-from PySide6.QtGui import *  # type: ignore
-from PySide6.QtWidgets import *  # type: ignore
-
+from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+    QMetaObject, QObject, QPoint, QRect,
+    QSize, QTime, QUrl, Qt)
+from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+    QFont, QFontDatabase, QGradient, QIcon,
+    QImage, QKeySequence, QLinearGradient, QPainter,
+    QPalette, QPixmap, QRadialGradient, QTransform)
+from PySide6.QtWidgets import (QApplication, QComboBox, QHBoxLayout, QHeaderView,
+    QLabel, QLineEdit, QMainWindow, QPushButton,
+    QScrollArea, QSizePolicy, QStackedWidget, QTabWidget,
+    QTableView, QTableWidget, QTableWidgetItem, QWidget)
 import resources_rc
 
 class Ui_MainWindow(object):
@@ -22,14 +29,14 @@ class Ui_MainWindow(object):
         MainWindow.setMinimumSize(QSize(1230, 880))
         MainWindow.setMaximumSize(QSize(1230, 880))
         icon = QIcon()
-        icon.addFile(u":/icon_small/CVIcaja.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u":/icon_small/CVIcaja.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         MainWindow.setWindowIcon(icon)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.stackedWidget = QStackedWidget(self.centralwidget)
         self.stackedWidget.setObjectName(u"stackedWidget")
         self.stackedWidget.setGeometry(QRect(0, 0, 1230, 880))
-        sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.stackedWidget.sizePolicy().hasHeightForWidth())
@@ -71,7 +78,6 @@ class Ui_MainWindow(object):
         self.login_btn.setGeometry(QRect(820, 730, 201, 47))
         font3 = QFont()
         font3.setBold(True)
-        font3.setLegacyWeight(75)
         self.login_btn.setFont(font3)
         self.login_btn.setFocusPolicy(Qt.TabFocus)
         self.login_btn.setAutoFillBackground(False)
@@ -114,9 +120,43 @@ class Ui_MainWindow(object):
         self.tab_caja = QTabWidget(self.Caja)
         self.tab_caja.setObjectName(u"tab_caja")
         self.tab_caja.setGeometry(QRect(30, 120, 1161, 691))
-        self.tab_caja.setStyleSheet(u"background-color:rgba(255, 255, 255, 0);background-color:rgba(0, 0, 0, 0);background-color:rgba(255, 255, 255, 255);color:black")
+        self.tab_caja.setStyleSheet(u"background-color:rgb(222, 221, 218);color:black")
         self.tab_venta = QWidget()
         self.tab_venta.setObjectName(u"tab_venta")
+        self.contenedor_cuentas = QScrollArea(self.tab_venta)
+        self.contenedor_cuentas.setObjectName(u"contenedor_cuentas")
+        self.contenedor_cuentas.setGeometry(QRect(0, 70, 1161, 591))
+        self.contenedor_cuentas.setWidgetResizable(True)
+        self.scrollAreaWidgetContents = QWidget()
+        self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 1159, 589))
+        self.horizontalLayoutWidget = QWidget(self.scrollAreaWidgetContents)
+        self.horizontalLayoutWidget.setObjectName(u"horizontalLayoutWidget")
+        self.horizontalLayoutWidget.setGeometry(QRect(0, 0, 1151, 581))
+        self.HLayout = QHBoxLayout(self.horizontalLayoutWidget)
+        self.HLayout.setObjectName(u"HLayout")
+        self.HLayout.setContentsMargins(2, 1, 1, 1)
+        self.contenedor_cuentas.setWidget(self.scrollAreaWidgetContents)
+        self.label_search_2 = QLabel(self.tab_venta)
+        self.label_search_2.setObjectName(u"label_search_2")
+        self.label_search_2.setGeometry(QRect(10, 20, 70, 31))
+        self.label_search_2.setFont(font2)
+        self.inv_le_2 = QLineEdit(self.tab_venta)
+        self.inv_le_2.setObjectName(u"inv_le_2")
+        self.inv_le_2.setGeometry(QRect(200, 20, 491, 31))
+        self.inv_le_2.setContextMenuPolicy(Qt.NoContextMenu)
+        self.inv_comboBox_2 = QComboBox(self.tab_venta)
+        self.inv_comboBox_2.addItem("")
+        self.inv_comboBox_2.addItem("")
+        self.inv_comboBox_2.setObjectName(u"inv_comboBox_2")
+        self.inv_comboBox_2.setGeometry(QRect(90, 20, 101, 31))
+        self.venta_btn = QPushButton(self.tab_venta)
+        self.venta_btn.setObjectName(u"venta_btn")
+        self.venta_btn.setGeometry(QRect(1020, 20, 121, 31))
+        self.venta_btn.setFont(font3)
+        self.venta_btn.setAutoFillBackground(False)
+        self.venta_btn.setStyleSheet(u"background-color:rgb(53, 132, 228); color: rgb(246, 245, 244); border-radius:10px;")
+        self.venta_btn.setAutoRepeat(False)
         self.tab_caja.addTab(self.tab_venta, "")
         self.tab_inventario = QWidget()
         self.tab_inventario.setObjectName(u"tab_inventario")
@@ -145,6 +185,21 @@ class Ui_MainWindow(object):
         self.tab_caja.addTab(self.faltantes_tab, "")
         self.tab_estetica = QWidget()
         self.tab_estetica.setObjectName(u"tab_estetica")
+        self.contenedor_esetetica = QScrollArea(self.tab_estetica)
+        self.contenedor_esetetica.setObjectName(u"contenedor_esetetica")
+        self.contenedor_esetetica.setGeometry(QRect(0, 70, 1161, 591))
+        self.contenedor_esetetica.setWidgetResizable(True)
+        self.scrollAreaWidgetContents_2 = QWidget()
+        self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 1159, 589))
+        self.contenedor_esetetica.setWidget(self.scrollAreaWidgetContents_2)
+        self.add_estetica_btn = QPushButton(self.tab_estetica)
+        self.add_estetica_btn.setObjectName(u"add_estetica_btn")
+        self.add_estetica_btn.setGeometry(QRect(20, 20, 131, 31))
+        self.add_estetica_btn.setFont(font3)
+        self.add_estetica_btn.setAutoFillBackground(False)
+        self.add_estetica_btn.setStyleSheet(u"background-color:rgb(53, 132, 228); color: rgb(246, 245, 244); border-radius:10px;")
+        self.add_estetica_btn.setAutoRepeat(False)
         self.tab_caja.addTab(self.tab_estetica, "")
         self.Logo_label_2 = QLabel(self.Caja)
         self.Logo_label_2.setObjectName(u"Logo_label_2")
@@ -255,10 +310,12 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(1)
         self.login_btn.setDefault(False)
         self.exit_btn.setDefault(False)
-        self.tab_caja.setCurrentIndex(1)
+        self.tab_caja.setCurrentIndex(0)
+        self.venta_btn.setDefault(False)
+        self.add_estetica_btn.setDefault(False)
         self.exit_btn_2.setDefault(False)
         self.send_btn.setDefault(False)
         self.remove_btn.setDefault(False)
@@ -280,6 +337,14 @@ class Ui_MainWindow(object):
         self.Login_combobox.setItemText(1, QCoreApplication.translate("MainWindow", u"Caja", None))
         self.Login_combobox.setItemText(2, QCoreApplication.translate("MainWindow", u"Admin", None))
 
+        self.label_search_2.setText(QCoreApplication.translate("MainWindow", u"Buscar:", None))
+        self.inv_comboBox_2.setItemText(0, QCoreApplication.translate("MainWindow", u"productos", None))
+        self.inv_comboBox_2.setItemText(1, QCoreApplication.translate("MainWindow", u"servicios", None))
+
+        self.venta_btn.setText(QCoreApplication.translate("MainWindow", u"Nueva Venta", None))
+#if QT_CONFIG(shortcut)
+        self.venta_btn.setShortcut(QCoreApplication.translate("MainWindow", u"Return", None))
+#endif // QT_CONFIG(shortcut)
         self.tab_caja.setTabText(self.tab_caja.indexOf(self.tab_venta), QCoreApplication.translate("MainWindow", u"Venta", None))
         self.inv_comboBox.setItemText(0, QCoreApplication.translate("MainWindow", u"productos", None))
         self.inv_comboBox.setItemText(1, QCoreApplication.translate("MainWindow", u"servicios", None))
@@ -287,6 +352,10 @@ class Ui_MainWindow(object):
         self.label_search.setText(QCoreApplication.translate("MainWindow", u"Buscar:", None))
         self.tab_caja.setTabText(self.tab_caja.indexOf(self.tab_inventario), QCoreApplication.translate("MainWindow", u"Inventario", None))
         self.tab_caja.setTabText(self.tab_caja.indexOf(self.faltantes_tab), QCoreApplication.translate("MainWindow", u"Faltantes", None))
+        self.add_estetica_btn.setText(QCoreApplication.translate("MainWindow", u"A\u00f1adir", None))
+#if QT_CONFIG(shortcut)
+        self.add_estetica_btn.setShortcut(QCoreApplication.translate("MainWindow", u"Return", None))
+#endif // QT_CONFIG(shortcut)
         self.tab_caja.setTabText(self.tab_caja.indexOf(self.tab_estetica), QCoreApplication.translate("MainWindow", u"Est\u00e9tica", None))
         self.Logo_label_2.setText("")
         self.exit_btn_2.setText(QCoreApplication.translate("MainWindow", u"Salir", None))

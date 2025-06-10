@@ -25,6 +25,10 @@ class ConsWindow:
         self.ui.remove_btn.clicked.connect(self.remove_item)
         self.ui.send_btn.clicked.connect(self.mandar_cuenta)
 
+        self.time = datetime.datetime.now()
+        self.carpeta = self.time.strftime("%d") + "_" + self.time.strftime("%m") + "_" + self.time.strftime("%Y")
+        self.filename = "Nota_" + self.time.strftime("%H") + self.time.strftime("%M") + self.time.strftime("%S") + ".json"
+
 
     def consul_search(self):
         self.ui.wrong_dr.hide()
@@ -138,23 +142,20 @@ class ConsWindow:
         else:
             self.paciente = self.ui.paciente_le.text()
             self.medico = self.ui.mvz_comboBox.currentText()
-            time = datetime.datetime.now()
-            self.carpeta = time.strftime("%d") + "_" + time.strftime("%m") + "_" + time.strftime("%Y")
-            self.filename = "Nota_" + time.strftime("%H") + time.strftime("%M") + time.strftime("%S") + ".json"
-            if os.path.exists("cuentas/" + self.carpeta):
+            if os.path.exists("cuentas/{self.carpeta}"):
 
                 #with open("cuentas/" + filename +  ".json", "w") as sendfile:
-                with open("cuentas/" + self.carpeta + "/" + self.filename, "w") as sendfile:
+                with open("cuentas/{self.carpeta}/{self.filename}", "w") as sendfile:
                     json.dump({
                         "paciente" : self.paciente,
                         "medico" : self.medico,
                         "servicios" : self.ui.send,
                         "Total" : self.total},sendfile)
                     sendfile.close()
-                shutil.copy2("cuentas/" + self.carpeta + "/" +self.filename,".cuentas_resp/" + self.carpeta + "/")
+                shutil.copy2("cuentas/{self.carpeta}/{self.filename}",".cuentas_resp/{self.carpeta}/")
             else:
-                os.mkdir("cuentas/" + self.carpeta)
-                os.mkdir(".cuentas_resp/" + self.carpeta)
+                os.mkdir("cuentas/{self.carpeta}")
+                os.mkdir(".cuentas_resp/{self.carpeta}")
                 self.mandar_cuenta()
             self.ui.paciente_le.clear()
             self.ui.send.clear()
@@ -173,7 +174,7 @@ class ConsWindow:
         #while True: 
         try: 
             # Reading file and sending data to server 
-            fi = open('cuentas/'+ self.carpeta +"/"+ self.filename, "r") 
+            fi = open("cuentas/{self.carpeta}/{self.filename}", "r") 
             data = fi.read() 
             #if not data: 
             #    break
