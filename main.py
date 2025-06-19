@@ -23,10 +23,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.login_btn.clicked.connect(self.check_login)
         self.exit_btn.clicked.connect(self.close)
         self.exit_btn_2.clicked.connect(self.close)
-        #self.caja_win.close_connections()
-
-
-        self.columnas = ["Code","Item","Precio"]
+        #self.caja_win.close_connections(
+        
         self.send = []                                  ##### lista para el  consultorio 
         
     def check_login(self):

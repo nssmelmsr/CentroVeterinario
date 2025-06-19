@@ -3,22 +3,15 @@
 ################################################################################
 ## Form generated from reading UI file 'main.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.9.0
+## Created by: Qt User Interface Compiler version 5.15.13
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
-    QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QComboBox, QHBoxLayout, QHeaderView,
-    QLabel, QLineEdit, QMainWindow, QPushButton,
-    QScrollArea, QSizePolicy, QStackedWidget, QTabWidget,
-    QTableView, QTableWidget, QTableWidgetItem, QWidget)
+from PySide6.QtCore import *  # type: ignore
+from PySide6.QtGui import *  # type: ignore
+from PySide6.QtWidgets import *  # type: ignore
+
 import resources_rc
 
 class Ui_MainWindow(object):
@@ -29,14 +22,14 @@ class Ui_MainWindow(object):
         MainWindow.setMinimumSize(QSize(1230, 880))
         MainWindow.setMaximumSize(QSize(1230, 880))
         icon = QIcon()
-        icon.addFile(u":/icon_small/CVIcaja.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon.addFile(u":/icon_small/CVIcaja.png", QSize(), QIcon.Normal, QIcon.Off)
         MainWindow.setWindowIcon(icon)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.stackedWidget = QStackedWidget(self.centralwidget)
         self.stackedWidget.setObjectName(u"stackedWidget")
         self.stackedWidget.setGeometry(QRect(0, 0, 1230, 880))
-        sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.stackedWidget.sizePolicy().hasHeightForWidth())
@@ -78,6 +71,7 @@ class Ui_MainWindow(object):
         self.login_btn.setGeometry(QRect(820, 730, 201, 47))
         font3 = QFont()
         font3.setBold(True)
+        font3.setLegacyWeight(75)
         self.login_btn.setFont(font3)
         self.login_btn.setFocusPolicy(Qt.TabFocus)
         self.login_btn.setAutoFillBackground(False)
@@ -157,6 +151,14 @@ class Ui_MainWindow(object):
         self.venta_btn.setAutoFillBackground(False)
         self.venta_btn.setStyleSheet(u"background-color:rgb(53, 132, 228); color: rgb(246, 245, 244); border-radius:10px;")
         self.venta_btn.setAutoRepeat(False)
+        self.table_busq = QTableView(self.tab_venta)
+        self.table_busq.setObjectName(u"table_busq")
+        self.table_busq.setGeometry(QRect(200, 50, 491, 151))
+        self.table_busq.setMinimumSize(QSize(491, 0))
+        self.table_busq.setMaximumSize(QSize(491, 16777215))
+        self.table_busq.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContentsOnFirstShow)
+        self.table_busq.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.table_busq.setSortingEnabled(False)
         self.tab_caja.addTab(self.tab_venta, "")
         self.tab_inventario = QWidget()
         self.tab_inventario.setObjectName(u"tab_inventario")

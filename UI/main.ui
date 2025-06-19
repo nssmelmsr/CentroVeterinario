@@ -447,6 +447,37 @@
          <bool>false</bool>
         </property>
        </widget>
+       <widget class="QTableView" name="table_busq">
+        <property name="geometry">
+         <rect>
+          <x>200</x>
+          <y>50</y>
+          <width>491</width>
+          <height>151</height>
+         </rect>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>491</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>491</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="sizeAdjustPolicy">
+         <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
+        </property>
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectRows</enum>
+        </property>
+        <property name="sortingEnabled">
+         <bool>false</bool>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="tab_inventario">
        <attribute name="title">

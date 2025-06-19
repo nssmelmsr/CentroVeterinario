@@ -25,10 +25,10 @@ if __name__ == '__main__':
         print('Connected with client', i+1) 
 
     fileno = 0
-    idx = 0
+    #idx = 0
     for conn in connections: 
         # Receiving File Data 
-        idx += 1
+     #   idx += 1
         data = conn[0].recv(1024).decode('utf-8') 
 
         if not data: 
