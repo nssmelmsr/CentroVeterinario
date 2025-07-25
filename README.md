@@ -9,3 +9,7 @@ Cambios en la interfaz gráfica, mayor tamaño de ventana.
 más funciones en ventanas caja y consultorio.
 Se agregan items a lista de compra en ventana consultorio
 
+##V0.4
+
+se crea ventana admin
+

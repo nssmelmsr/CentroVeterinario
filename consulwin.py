@@ -169,7 +169,7 @@ class ConsWindow:
         self.tcp_client()
     
     def tcp_client(self):  
-        host = '192.168.1.105' ##IP de caja
+        host = '192.168.1.80' ##IP de caja
         port = 8080
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
         # Connecting with Server 

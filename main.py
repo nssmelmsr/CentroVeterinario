@@ -6,6 +6,7 @@ from mainwindow import Ui_MainWindow
 from cajawin import caja_win
 from consulwin import ConsWindow
 import connectDB_orig
+import os, json
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -19,10 +20,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         #Hacer cosas con los widgets
         self.stackedWidget.setCurrentIndex(0) #muestra pantalla principal
         self.wrong_up_label.hide()
-        self.Pass_le.setDisabled(True)
+        self.Pass_le.hide()
+        self.pass_label.hide()
         self.login_btn.clicked.connect(self.check_login)
         self.exit_btn.clicked.connect(self.close)
         self.exit_btn_2.clicked.connect(self.close)
+        self.admin_SE_button.clicked.connect(self.guardar_cambios)
+
         #self.caja_win.close_connections(
         
         self.send = []                                  ##### lista para el  consultorio 
@@ -42,11 +46,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.caja_win
             
         
-        elif ((self.Login_combobox.currentText == 'Admin') and (self.Pass_le.text() == 'admin.1204')):
-            print("conectado como administrador")
+        elif (self.Login_combobox.currentText == 'Admin'):
+            self.Pass_le.show()
+            self.pass_label.show()
+            if self.Pass_le.text() == 'admin.1204':
+                print("conectado como administrador")
+                self.stackedWidget.setCurrentIndex(3)
+        #else:
+            #self.wrong_up_label.show()
 
+    def guardar_cambios(self):
+        if os.path.exists(f"myinf"):
+
+            
+            with open(f"myinf/info.json", "w") as conffile:
+                json.dump({
+                    "IP_caja" : self.IP_le.text()},
+                    conffile)
+                conffile.close()
         else:
-            self.wrong_up_label.show()
+                os.mkdir(f"myinf")
+                
 
 
     def keyPressEvent(self, e):
@@ -55,7 +75,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.check_login()
         elif self.stackedWidget.currentIndex() == 2:    ##consultorio
             if e.key() == Qt.Key_Delete:
-                self.remove_item
+                self.remove_item()
 
             
 if __name__ == "__main__":
