@@ -16,8 +16,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QCheckBox, QHeaderView, QLabel,
-    QPushButton, QScrollArea, QSizePolicy, QTableView,
-    QTextEdit, QWidget)
+    QLineEdit, QPushButton, QScrollArea, QSizePolicy,
+    QTableView, QWidget)
 
 class Ui_cuenta_view(object):
     def setupUi(self, cuenta_view):
@@ -39,10 +39,6 @@ class Ui_cuenta_view(object):
         self.dr_label.setGeometry(QRect(10, 50, 311, 31))
         self.dr_label.setFont(font)
         self.dr_label.setStyleSheet(u"color:black")
-        self.notaTE = QTextEdit(cuenta_view)
-        self.notaTE.setObjectName(u"notaTE")
-        self.notaTE.setGeometry(QRect(13, 469, 301, 61))
-        self.notaTE.setStyleSheet(u"color:black")
         self.label = QLabel(cuenta_view)
         self.label.setObjectName(u"label")
         self.label.setGeometry(QRect(10, 450, 66, 17))
@@ -97,6 +93,9 @@ class Ui_cuenta_view(object):
         self.tarjCheckBox.setObjectName(u"tarjCheckBox")
         self.tarjCheckBox.setGeometry(QRect(210, 370, 92, 23))
         self.tarjCheckBox.setStyleSheet(u"color:black;")
+        self.notaLe = QLineEdit(cuenta_view)
+        self.notaLe.setObjectName(u"notaLe")
+        self.notaLe.setGeometry(QRect(10, 470, 301, 61))
 
         self.retranslateUi(cuenta_view)
 

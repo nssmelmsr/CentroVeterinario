@@ -13,3 +13,4 @@ UI/cajaUI.ui
 UI/login.ui
 cuentas/*
 .cuentas_resp/*
+tmp/*

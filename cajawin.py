@@ -1,22 +1,22 @@
-from PySide6.QtCore import Qt, QThread, Signal
+from PySide6.QtCore import Qt, QThread, Signal, QObject, Slot
 from PySide6.QtWidgets import *
 from PySide6 import QtSql,QtWidgets
 from PySide6.QtGui import QStandardItemModel, QStandardItem
 from cuentaWidget import Ui_cuenta_view
-import socket , datetime, os, json
+import socket , datetime, os, json, shutil
 
 class muestra_nota(QWidget):
-    recibir_prod = Signal(dict)
+    #recibir_prod = Signal(dict)
+    recibir_prod = Signal(dict,object)      ##este es de gpt
     def __init__(self, datos, parent=None):
         super().__init__(parent)
         self.ui = Ui_cuenta_view()
         self.ui.setupUi(self)
         self.columnas = ["Code", "Item", "Precio"]
         
-        self.datos = []  # <--- NUEVO: aquí guardamos los datos reales
+        self.datos = []  
 
         self.ui.remove_btn_extra.clicked.connect(self.remove_item)
-        #self.ui.add_btn_extra.clicked.connect(lambda: self.recibir_prod.emit({}))
         self.ui.add_btn_extra.clicked.connect(self.recibir_pedido)
         self.ui.finish_btn.clicked.connect(self.cuenta_final)
 
@@ -43,11 +43,52 @@ class muestra_nota(QWidget):
 
 
     def recibir_pedido(self):
-        self.recibir_prod.emit({"widget": self})
+        #self.recibir_prod.emit({"widget": self})
+        self.recibir_prod.emit({}, self)        ##este es de gpt
 
 
     def cuenta_final(self):
-        self.close()
+        if self.ui.tarjCheckBox.isChecked or self.ui.efeCheckBox.isChecked:
+            now = datetime.datetime.now()
+            self.paciente = self.ui.paciente_label_2.text()
+            self.medico = self.ui.dr_label.text()
+            if self.ui.efeCheckBox.isChecked and self.ui.tarjCheckBox.isChecked:
+                self.metodo = "pago con efectivo y tarjeta"
+            elif self.ui.tarjCheckBox.isChecked:
+                self.metodo = "pago con tarjeta"
+            elif self.ui.efeCheckBox.isChecked:
+                self.metodo = "pago con efectivo"
+            self.extra = self.ui.notaLe.text()
+            self.carpeta = now.strftime("%d_%m_%Y")
+            self.filename = "Nota_" + now.strftime("%H%M%S") + ".json"
+
+            os.makedirs(f"tmp/{self.carpeta}", exist_ok=True)
+
+            if os.path.exists(f"cuentas/{self.carpeta}"):
+
+                #with open("cuentas/" + filename +  ".json", "w") as sendfile:
+                with open(f"cuentas/{self.carpeta}/{self.filename}", "w") as savefile:
+                    json.dump({
+                        "paciente" : self.paciente,
+                        "medico" : self.medico,
+                        "servicios" : self.datos,
+                        "pago" : self.metodo,
+                        "extra" : self.extra,
+                        "Total" : self.total},savefile)
+                    savefile.close()
+                shutil.copy2(f"cuentas/{self.carpeta}/{self.filename}",f".cuentas_resp/{self.carpeta}/")
+                self.close()
+            else:
+                os.mkdir(f"cuentas/{self.carpeta}")
+                os.mkdir(f".cuentas_resp/{self.carpeta}")
+                #self.close()
+        else: 
+            print("seleccione método de pago")
+            aviso = QMessageBox(self)
+            aviso.setWindowTitle("¡Atención!")
+            aviso.setText("Se requiere método de pago")
+            return
+
 
     def redibujar_tabla(self):
         self.model = QStandardItemModel(len(self.datos), len(self.columnas))
@@ -105,13 +146,12 @@ class TCPReceiver(QThread):
         while self.running:
             conn, addr = sock.accept()
             print("Conectado con:", addr)
-
             now = datetime.datetime.now()
             carpeta = now.strftime("%d_%m_%Y")
             filename = "Nota_" + now.strftime("%H%M%S") + ".json"
 
-            os.makedirs(f"cuentas/{carpeta}", exist_ok=True)
-            full_path = f"cuentas/{carpeta}/{filename}"
+            os.makedirs(f"tmp/{carpeta}", exist_ok=True)
+            full_path = f"tmp/{carpeta}/{filename}"
 
             with open(full_path, "w", encoding="utf-8") as f:
                 while True:
@@ -130,7 +170,7 @@ class TCPReceiver(QThread):
         self.wait()
 
 
-class caja_win:
+class caja_win(QObject):
     enviar_producto = Signal(str)
     
     def __init__(self, main_window):
@@ -152,6 +192,8 @@ class caja_win:
 
         self.ui.inv_le_2.textChanged.connect(self.busqueda)
         self.ui.inv_comboBox_2.currentIndexChanged.connect(self.busqueda)
+
+        self.ui.tab_caja.currentChanged.connect(self._on_tab_changed)
         
 
         # Inicia el hilo de recepción TCP
@@ -159,8 +201,8 @@ class caja_win:
         self.receiver.archivo_recibido.connect(self.procesar_archivo)
         self.receiver.start()
 
-
-    def enviar_a_cuenta(self, info, widget):  ################################ aqui paso 2
+    @Slot(str)  #################################
+    def enviar_a_cuenta(self, info, widget): 
         self.ui.table_busq.hide()
         table_select_c = self.ui.inv_comboBox_2.currentText()
         seleccion = self.ui.table_busq.selectionModel()
@@ -175,26 +217,17 @@ class caja_win:
                 product = self.ui.modelo_caja.index(self.fila,1).data()
                 price = self.ui.modelo_caja.index(self.fila,2).data() 
 
-            #print(code_send,product_send,price_send)
+    
             producto = {
                 "Code" : code,
                 "Item" : product,
                 "Precio" : float(price)
             }
-            #self.redibujar_tabla()
 
             widget.agregar_producto(producto)
         else:
             print("nada seleccionado")
         
-        #try:
-         #   self.ui.add_btn_extra.clicked.disconnect()        #boton en widget
-        #except TypeError:
-         #   pass  # No había conexiones previas
-
-        
-        #self.widget_nota.agregar_producto(producto)
-
 
 
 
@@ -215,9 +248,23 @@ class caja_win:
                 print(datos.get("Total"))
             
                 nueva_nota = muestra_nota(datos)
-                #nueva_nota.recibir_prod.connect(self.enviar_a_cuenta)
-                nueva_nota.recibir_prod.connect(lambda info, w=nueva_nota: self.enviar_a_cuenta(info,w))
-                self.ui.HLayout.addWidget(nueva_nota)
+                
+                #nueva_nota.recibir_prod.connect(lambda info, w=nueva_nota: self.enviar_a_cuenta(info,w))
+                nueva_nota.recibir_prod.connect(self.enviar_a_cuenta)
+                ##############################
+                if not hasattr(self, "notas_abiertas"):
+                    self.notas_abiertas = []
+                self.notas_abiertas.append(nueva_nota)
+
+                # Asegurar que el layout es válido antes de añadir
+                if hasattr(self.ui, "HLayout") and isinstance(self.ui.HLayout, QHBoxLayout):
+                    self.ui.HLayout.addWidget(nueva_nota)
+                else:
+                    print("⚠️ Error: HLayout no es un QHBoxLayout válido o no existe en el .ui")
+
+ 
+                ########################### bloque de prueba
+                #self.ui.HLayout.addWidget(nueva_nota)      ##con este si jalaba
             #self.ui.HLayout.addWidget(self.widget_nota)  # Agrega el widget al layout
 
         except Exception as e:
@@ -226,9 +273,7 @@ class caja_win:
 
 
     def nueva_venta(self):
-        #self.datos = "N/A"
-        #nuevo_widget = muestra_nota(self.datos)
-        #self.ui.HLayout.addWidget(self.widget_nota)  # Agrega el widget al layout
+
         datos = { 
             "paciente": "N/A",
             "medico": "N/A",
@@ -288,9 +333,12 @@ class caja_win:
             self.ui.table_busq.show()
         else:
             print("Error: no se encontró la tabla")
-    
 
-    
+
+
+    def _on_tab_changed(self, idx):
+        if self.ui.tab_caja.widget(idx) is self.ui.faltantes_tab:
+            self.faltantes()
 
 
     def faltantes(self):

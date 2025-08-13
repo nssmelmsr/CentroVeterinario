@@ -70,19 +70,6 @@
     <string>Doctor:</string>
    </property>
   </widget>
-  <widget class="QTextEdit" name="notaTE">
-   <property name="geometry">
-    <rect>
-     <x>13</x>
-     <y>469</y>
-     <width>301</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color:black</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
@@ -288,6 +275,16 @@
    </property>
    <property name="text">
     <string>Tarjeta</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="notaLe">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>470</y>
+     <width>301</width>
+     <height>61</height>
+    </rect>
    </property>
   </widget>
  </widget>

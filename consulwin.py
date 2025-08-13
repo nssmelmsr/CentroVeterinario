@@ -156,7 +156,7 @@ class ConsWindow:
                         "servicios" : self.send,
                         "Total" : self.total},sendfile)
                     sendfile.close()
-                shutil.copy2(f"cuentas/{self.carpeta}/{self.filename}",".cuentas_resp/{self.carpeta}/")
+                shutil.copy2(f"cuentas/{self.carpeta}/{self.filename}",f".cuentas_resp/{self.carpeta}/")
             else:
                 os.mkdir(f"cuentas/{self.carpeta}")
                 os.mkdir(f".cuentas_resp/{self.carpeta}")
