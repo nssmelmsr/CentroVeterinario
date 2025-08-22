@@ -7,7 +7,7 @@ import socket , datetime, os, json, shutil
 
 class muestra_nota(QWidget):
     #recibir_prod = Signal(dict)
-    recibir_prod = Signal(dict,object)      ##este es de gpt
+    recibir_prod = Signal(dict,object)     
     def __init__(self, datos, parent=None):
         super().__init__(parent)
         self.ui = Ui_cuenta_view()
@@ -38,57 +38,60 @@ class muestra_nota(QWidget):
                 "Precio": float(servicio.get("Precio", 0))
             })
 
-        self.redibujar_tabla()  # <--- ahora generamos el modelo visual
+        self.redibujar_tabla() 
 
 
 
     def recibir_pedido(self):
-        #self.recibir_prod.emit({"widget": self})
-        self.recibir_prod.emit({}, self)        ##este es de gpt
+        self.recibir_prod.emit({}, self) 
 
 
     def cuenta_final(self):
-        if self.ui.tarjCheckBox.isChecked or self.ui.efeCheckBox.isChecked:
-            now = datetime.datetime.now()
-            self.paciente = self.ui.paciente_label_2.text()
-            self.medico = self.ui.dr_label.text()
-            if self.ui.efeCheckBox.isChecked and self.ui.tarjCheckBox.isChecked:
-                self.metodo = "pago con efectivo y tarjeta"
-            elif self.ui.tarjCheckBox.isChecked:
-                self.metodo = "pago con tarjeta"
-            elif self.ui.efeCheckBox.isChecked:
-                self.metodo = "pago con efectivo"
-            self.extra = self.ui.notaLe.text()
-            self.carpeta = now.strftime("%d_%m_%Y")
-            self.filename = "Nota_" + now.strftime("%H%M%S") + ".json"
-
-            os.makedirs(f"tmp/{self.carpeta}", exist_ok=True)
-
-            if os.path.exists(f"cuentas/{self.carpeta}"):
-
-                #with open("cuentas/" + filename +  ".json", "w") as sendfile:
-                with open(f"cuentas/{self.carpeta}/{self.filename}", "w") as savefile:
-                    json.dump({
-                        "paciente" : self.paciente,
-                        "medico" : self.medico,
-                        "servicios" : self.datos,
-                        "pago" : self.metodo,
-                        "extra" : self.extra,
-                        "Total" : self.total},savefile)
-                    savefile.close()
-                shutil.copy2(f"cuentas/{self.carpeta}/{self.filename}",f".cuentas_resp/{self.carpeta}/")
-                self.close()
-            else:
-                os.mkdir(f"cuentas/{self.carpeta}")
-                os.mkdir(f".cuentas_resp/{self.carpeta}")
-                #self.close()
+        if self.ui.tarjCheckBox.isChecked() or self.ui.efeCheckBox.isChecked():
+            self.guardar_nota()
         else: 
             print("seleccione método de pago")
             aviso = QMessageBox(self)
             aviso.setWindowTitle("¡Atención!")
             aviso.setText("Se requiere método de pago")
+            aviso.exec()
             return
 
+    def guardar_nota(self):
+
+        now = datetime.datetime.now()
+        self.paciente = self.ui.paciente_label_2.text()
+        self.medico = self.ui.dr_label.text()
+        if self.ui.efeCheckBox.isChecked() and self.ui.tarjCheckBox.isChecked():
+            self.metodo = "pago con efectivo y tarjeta"
+        elif self.ui.tarjCheckBox.isChecked():
+            self.metodo = "pago con tarjeta"
+        elif self.ui.efeCheckBox.isChecked():
+            self.metodo = "pago con efectivo"
+        self.extra = self.ui.notaLe.text()
+        self.carpeta = now.strftime("%d_%m_%Y")
+        self.filename = "Nota_" + now.strftime("%H%M%S") + ".json"
+
+        os.makedirs(f"cuentas/{self.carpeta}", exist_ok=True)
+        os.makedirs(f".cuentas_resp/{self.carpeta}", exist_ok=True)
+        #if os.path.exists(f"cuentas/{self.carpeta}"):
+
+            
+        with open(f"cuentas/{self.carpeta}/{self.filename}", "w") as savefile:
+                json.dump({
+                    "paciente" : self.paciente,
+                    "medico" : self.medico,
+                    "servicios" : self.datos,
+                    "pago" : self.metodo,
+                    "extra" : self.extra,
+                    "Total" : self.total},savefile)
+                savefile.close()
+        shutil.copy2(f"cuentas/{self.carpeta}/{self.filename}",f".cuentas_resp/{self.carpeta}/")
+        self.close()
+        #else:
+            #os.mkdir(f"cuentas/{self.carpeta}")
+            
+        
 
     def redibujar_tabla(self):
         self.model = QStandardItemModel(len(self.datos), len(self.columnas))
@@ -238,6 +241,10 @@ class caja_win(QObject):
 
 
     def procesar_archivo(self, ruta):
+  #      from PySide6.QtWidgets import QLabel
+   #     prueba = QLabel("Hola, soy una nota de prueba")
+    #    prueba.setStyleSheet("background: yellow;")
+     #   self.ui.HLayout.addWidget(prueba)
         try:
             with open(ruta, "r", encoding="utf-8") as cuenta:
                 datos = json.load(cuenta)
@@ -327,7 +334,7 @@ class caja_win(QObject):
             self.ui.modelo_caja.setHeaderData(2, Qt.Horizontal, "Precio")       
 
         if self.ui.modelo_caja.lastError().isValid():
-            print("Error SQL:", self.ui.modelo_consul.lastError().text())
+            print("Error SQL:", self.ui.modelo_caja.lastError().text())
         if self.ui.table_busq:
             self.ui.table_busq.setModel(self.ui.modelo_caja)
             self.ui.table_busq.show()

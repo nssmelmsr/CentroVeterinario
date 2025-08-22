@@ -6,7 +6,7 @@
 ## Created by: Qt User Interface Compiler version 6.9.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
-################################################################################
+#################################################################################
 
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
@@ -15,11 +15,10 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QAbstractItemView, QAbstractScrollArea, QApplication, QComboBox,
-    QHBoxLayout, QHeaderView, QLabel, QLayout,
-    QLineEdit, QMainWindow, QPushButton, QScrollArea,
-    QSizePolicy, QStackedWidget, QTabWidget, QTableView,
-    QTableWidget, QTableWidgetItem, QWidget)
+from PySide6.QtWidgets import (QApplication, QComboBox, QHBoxLayout, QHeaderView,
+    QLabel, QLineEdit, QMainWindow, QPushButton,
+    QScrollArea, QSizePolicy, QStackedWidget, QTabWidget,
+    QTableView, QTableWidget, QTableWidgetItem, QWidget)
 import resources_rc
 
 class Ui_MainWindow(object):
@@ -127,22 +126,6 @@ class Ui_MainWindow(object):
         self.tab_caja.setStyleSheet(u"background-color:rgb(222, 221, 218);color:black")
         self.tab_venta = QWidget()
         self.tab_venta.setObjectName(u"tab_venta")
-        self.contenedor_cuentas = QScrollArea(self.tab_venta)
-        self.contenedor_cuentas.setObjectName(u"contenedor_cuentas")
-        self.contenedor_cuentas.setGeometry(QRect(0, 70, 1161, 591))
-        self.contenedor_cuentas.setWidgetResizable(True)
-        self.scrollAreaWidgetContents = QWidget()
-        self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 1159, 589))
-        self.horizontalLayoutWidget = QWidget(self.scrollAreaWidgetContents)
-        self.horizontalLayoutWidget.setObjectName(u"horizontalLayoutWidget")
-        self.horizontalLayoutWidget.setGeometry(QRect(0, 0, 1161, 591))
-        self.HLayout = QHBoxLayout(self.horizontalLayoutWidget)
-        self.HLayout.setSpacing(4)
-        self.HLayout.setObjectName(u"HLayout")
-        self.HLayout.setSizeConstraint(QLayout.SetMaximumSize)
-        self.HLayout.setContentsMargins(2, 1, 2, 1)
-        self.contenedor_cuentas.setWidget(self.scrollAreaWidgetContents)
         self.label_search_2 = QLabel(self.tab_venta)
         self.label_search_2.setObjectName(u"label_search_2")
         self.label_search_2.setGeometry(QRect(10, 20, 70, 31))
@@ -163,14 +146,15 @@ class Ui_MainWindow(object):
         self.venta_btn.setAutoFillBackground(False)
         self.venta_btn.setStyleSheet(u"background-color:rgb(53, 132, 228); color: rgb(246, 245, 244); border-radius:10px;")
         self.venta_btn.setAutoRepeat(False)
+        self.horizontalLayoutWidget = QWidget(self.tab_venta)
+        self.horizontalLayoutWidget.setObjectName(u"horizontalLayoutWidget")
+        self.horizontalLayoutWidget.setGeometry(QRect(0, 90, 1161, 571))
+        self.HLayout = QHBoxLayout(self.horizontalLayoutWidget)
+        self.HLayout.setObjectName(u"HLayout")
+        self.HLayout.setContentsMargins(0, 0, 0, 0)
         self.table_busq = QTableView(self.tab_venta)
         self.table_busq.setObjectName(u"table_busq")
-        self.table_busq.setGeometry(QRect(200, 50, 491, 151))
-        self.table_busq.setMinimumSize(QSize(491, 0))
-        self.table_busq.setMaximumSize(QSize(491, 16777215))
-        self.table_busq.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContentsOnFirstShow)
-        self.table_busq.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.table_busq.setSortingEnabled(False)
+        self.table_busq.setGeometry(QRect(200, 50, 491, 211))
         self.tab_caja.addTab(self.tab_venta, "")
         self.tab_inventario = QWidget()
         self.tab_inventario.setObjectName(u"tab_inventario")
@@ -343,7 +327,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(3)
+        self.stackedWidget.setCurrentIndex(1)
         self.login_btn.setDefault(False)
         self.exit_btn.setDefault(False)
         self.tab_caja.setCurrentIndex(0)
