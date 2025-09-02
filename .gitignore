@@ -14,3 +14,4 @@ UI/login.ui
 cuentas/*
 .cuentas_resp/*
 tmp/*
+.myinf/*

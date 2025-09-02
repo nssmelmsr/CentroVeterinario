@@ -6,7 +6,7 @@
 ## Created by: Qt User Interface Compiler version 6.9.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
-#################################################################################
+################################################################################
 
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
@@ -73,7 +73,7 @@ class Ui_MainWindow(object):
         font3 = QFont()
         font3.setPointSize(15)
         self.Pass_le.setFont(font3)
-        self.Pass_le.setFocusPolicy(Qt.TabFocus)
+        self.Pass_le.setFocusPolicy(Qt.ClickFocus)
         self.Pass_le.setStyleSheet(u"background-color:rgb(192, 191, 188);border-radius:10px;color:black")
         self.Pass_le.setEchoMode(QLineEdit.Password)
         self.login_btn = QPushButton(self.Login)
@@ -304,30 +304,35 @@ class Ui_MainWindow(object):
         self.label_total.setFont(font3)
         self.label_total.setStyleSheet(u"background-color:rgba(0, 0, 0, 0);color:black;")
         self.stackedWidget.addWidget(self.Consul)
-        self.page = QWidget()
-        self.page.setObjectName(u"page")
-        self.admin_SE_button = QPushButton(self.page)
+        self.Admin = QWidget()
+        self.Admin.setObjectName(u"Admin")
+        self.admin_SE_button = QPushButton(self.Admin)
         self.admin_SE_button.setObjectName(u"admin_SE_button")
         self.admin_SE_button.setGeometry(QRect(490, 700, 241, 61))
         font5 = QFont()
         font5.setPointSize(22)
         self.admin_SE_button.setFont(font5)
         self.admin_SE_button.setStyleSheet(u"background-color:rgb(53, 132, 228); color: rgb(246, 245, 244); border-radius:20px;")
-        self.IP_le = QLineEdit(self.page)
-        self.IP_le.setObjectName(u"IP_le")
-        self.IP_le.setGeometry(QRect(540, 140, 331, 41))
-        self.IP_label = QLabel(self.page)
+        self.IP_caja_le = QLineEdit(self.Admin)
+        self.IP_caja_le.setObjectName(u"IP_caja_le")
+        self.IP_caja_le.setGeometry(QRect(540, 140, 331, 41))
+        font6 = QFont()
+        font6.setPointSize(16)
+        self.IP_caja_le.setFont(font6)
+        self.IP_caja_le.setStyleSheet(u"background-color:rgb(192, 191, 188);border-radius:10px;color:black")
+        self.IP_label = QLabel(self.Admin)
         self.IP_label.setObjectName(u"IP_label")
         self.IP_label.setGeometry(QRect(370, 140, 161, 41))
-        font6 = QFont()
-        font6.setPointSize(25)
-        self.IP_label.setFont(font6)
-        self.stackedWidget.addWidget(self.page)
+        font7 = QFont()
+        font7.setPointSize(25)
+        self.IP_label.setFont(font7)
+        self.IP_label.setStyleSheet(u"background-color:rgba(0, 0, 0, 0);color:black;")
+        self.stackedWidget.addWidget(self.Admin)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(3)
         self.login_btn.setDefault(False)
         self.exit_btn.setDefault(False)
         self.tab_caja.setCurrentIndex(0)

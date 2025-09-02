@@ -1,6 +1,7 @@
 from PySide6.QtWidgets import *
 from PySide6 import  QtSql, QtWidgets
 from PySide6.QtCore import Qt
+from getinfo import get_data
 import datetime
 import json
 import shutil
@@ -15,6 +16,7 @@ class ConsWindow:
         self.columnas = ["Code","Item","Precio"]
         self.send = []                                  ##### lista para el  consultorio
         self.total = 0
+        self.ips = get_data() 
 
         self.ui.exit_btn_2.clicked.connect(self.ui.close)    
 
@@ -169,7 +171,7 @@ class ConsWindow:
         self.tcp_client()
     
     def tcp_client(self):  
-        host = '192.168.1.80' ##IP de caja
+        host = self.ips.get_caja() ##IP de caja
         port = 8080
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
         # Connecting with Server 

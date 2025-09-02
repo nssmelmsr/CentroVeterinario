@@ -1,0 +1,31 @@
+import os,json
+from PySide6.QtWidgets import QMessageBox
+    
+class get_data():
+    #def __init__(self,main_window):
+    
+    def get_caja(self):
+        if os.path.exists(f".myinf"): 
+            with open(f".myinf/info.json", "r", encoding="utf-8") as data:
+                info = json.load(data)        
+                self.ip_caja = info.get("IP_caja")
+                return self.ip_caja
+        else: 
+            print("cree archivo de configuración")
+            aviso = QMessageBox(self)
+            aviso.setWindowTitle("¡Atención!")
+            aviso.setText("Se requiere método de pago")
+            aviso.exec()
+    
+    def get_local(self):
+        if os.path.exists(f".myinf"): 
+            with open(f".myinf/info.json", "r", encoding="utf-8") as data:
+                info = json.load(data)        
+                self.ip_local = info.get("IP_local")
+                return self.ip_local
+        else: 
+            print("cree archivo de configuración")
+            aviso = QMessageBox(self)
+            aviso.setWindowTitle("¡Atención!")
+            aviso.setText("Se requiere método de pago")
+            aviso.exec()

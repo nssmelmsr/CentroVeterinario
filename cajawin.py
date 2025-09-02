@@ -3,7 +3,8 @@ from PySide6.QtWidgets import *
 from PySide6 import QtSql,QtWidgets
 from PySide6.QtGui import QStandardItemModel, QStandardItem
 from cuentaWidget import Ui_cuenta_view
-import socket , datetime, os, json, shutil
+from getinfo import get_data
+import socket , datetime, os, json, shutil  
 
 class muestra_nota(QWidget):
     #recibir_prod = Signal(dict)
@@ -11,6 +12,7 @@ class muestra_nota(QWidget):
     def __init__(self, datos, parent=None):
         super().__init__(parent)
         self.ui = Ui_cuenta_view()
+
         self.ui.setupUi(self)
         self.columnas = ["Code", "Item", "Precio"]
         
@@ -132,17 +134,18 @@ class muestra_nota(QWidget):
 class TCPReceiver(QThread):
     archivo_recibido = Signal(str)  # Emitirá la ruta del archivo recibido
 
-    def __init__(self, host, port, parent=None):
+    def __init__(self, parent=None):
         super().__init__(parent)
-        self.host = host
-        self.port = port
+        #ip = get_data()
+        #self.host = ip.get_local()
+        self.host = socket.gethostbyname(socket.gethostname())
+        self.port = 8080
         self.running = True
-
-
 
 
     def run(self):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        print(sock) 
         sock.bind((self.host, self.port))
         sock.listen(1)
 
@@ -200,11 +203,23 @@ class caja_win(QObject):
         
 
         # Inicia el hilo de recepción TCP
-        self.receiver = TCPReceiver("192.168.1.118", 8080)
+
+        #self.host = self.get_host()
+        #self.port = 8080
+        self.receiver = TCPReceiver()#self.host, self.port)
         self.receiver.archivo_recibido.connect(self.procesar_archivo)
         self.receiver.start()
 
     @Slot(str)  #################################
+
+#    def get_host(self):
+#        if os.path.exists(f".myinf/info.json"): 
+#            with open(f".myinf/info.json", "r", encoding="utf-8") as data:
+#                info = json.load(data)        
+#                host = (info.get("IP_caja"))
+#                return host 
+    
+
     def enviar_a_cuenta(self, info, widget): 
         self.ui.table_busq.hide()
         table_select_c = self.ui.inv_comboBox_2.currentText()
