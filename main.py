@@ -12,9 +12,7 @@ import connectDB
 
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
-        super().__init__()
-        # Cargar el archivo .ui
-        #uic.loadUi("UI/main.ui", self)
+        super().__init__()  
         self.setupUi(self)     
         self.consul_win = ConsWindow(self)
         self.caja_win = caja_win(self)

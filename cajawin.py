@@ -76,7 +76,7 @@ class muestra_nota(QWidget):
 
         os.makedirs(f"cuentas/{self.carpeta}", exist_ok=True)
         os.makedirs(f".cuentas_resp/{self.carpeta}", exist_ok=True)
-        #if os.path.exists(f"cuentas/{self.carpeta}"):
+
 
             
         with open(f"cuentas/{self.carpeta}/{self.filename}", "w") as savefile:
@@ -88,10 +88,9 @@ class muestra_nota(QWidget):
                     "extra" : self.extra,
                     "Total" : self.total},savefile)
                 savefile.close()
-        shutil.copy2(f"cuentas/{self.carpeta}/{self.filename}",f".cuentas_resp/{self.carpeta}/")
+        shutil.copy2(f"cuentas/{self.carpeta}/{self.filename}",f".cuentas_resp/{self.carpeta}")
         self.close()
-        #else:
-            #os.mkdir(f"cuentas/{self.carpeta}")
+
             
         
 
@@ -136,8 +135,6 @@ class TCPReceiver(QThread):
 
     def __init__(self, parent=None):
         super().__init__(parent)
-        #ip = get_data()
-        #self.host = ip.get_local()
         self.host = socket.gethostbyname(socket.gethostname())
         self.port = 8080
         self.running = True
@@ -202,22 +199,13 @@ class caja_win(QObject):
         self.ui.tab_caja.currentChanged.connect(self._on_tab_changed)
         
 
-        # Inicia el hilo de recepción TCP
-
-        #self.host = self.get_host()
-        #self.port = 8080
         self.receiver = TCPReceiver()#self.host, self.port)
         self.receiver.archivo_recibido.connect(self.procesar_archivo)
         self.receiver.start()
 
     @Slot(str)  #################################
 
-#    def get_host(self):
-#        if os.path.exists(f".myinf/info.json"): 
-#            with open(f".myinf/info.json", "r", encoding="utf-8") as data:
-#                info = json.load(data)        
-#                host = (info.get("IP_caja"))
-#                return host 
+
     
 
     def enviar_a_cuenta(self, info, widget): 
