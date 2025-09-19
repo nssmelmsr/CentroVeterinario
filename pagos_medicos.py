@@ -29,5 +29,4 @@ def contar_medicos_en_consultas(directorio):
     for medico, cantidad in contador_medicos.items():
         print(f'{medico}: {cantidad}')
 
-# Ejemplo de uso:
 contar_medicos_en_consultas(directorio)

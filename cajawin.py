@@ -72,7 +72,7 @@ class muestra_nota(QWidget):
             self.metodo = "pago con efectivo"
         self.extra = self.ui.notaLe.text()
         self.carpeta = now.strftime("%d_%m_%Y")
-        self.filename = "Nota_" + now.strftime("%H%M%S") + ".json"
+        self.filename = "Nota_" + now.strftime("%d_%m_%Y") + now.strftime("%H%M%S") + ".json"
 
         os.makedirs(f"cuentas/{self.carpeta}", exist_ok=True)
         os.makedirs(f".cuentas_resp/{self.carpeta}", exist_ok=True)

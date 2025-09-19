@@ -22,7 +22,9 @@ def metodo_de_pago(directorio):
                     print(pago)
                     print(f'Archivo: {archivo}, Total: {total}')
                     for servicio in data.get("servicios", []):
-                        print(servicio)             
+                        item = servicio.get('Item', [])
+                        precio = servicio.get('Precio', [])
+                        print(f'{item}, {precio}')           
                     print(extra)
             
             except Exception as e:
