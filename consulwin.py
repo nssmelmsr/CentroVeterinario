@@ -148,20 +148,20 @@ class ConsWindow:
         else:
             self.paciente = self.ui.paciente_le.text()
             self.medico = self.ui.mvz_comboBox.currentText()
-            if os.path.exists(f"cuentas\{self.carpeta}"):
+            if os.path.exists(f"cuentas/{self.carpeta}"):
 
                 
-                with open(f"cuentas\{self.carpeta}\{self.filename}", "w") as sendfile:
+                with open(f"cuentas/{self.carpeta}/{self.filename}", "w") as sendfile:
                     json.dump({
                         "paciente" : self.paciente,
                         "medico" : self.medico,
                         "servicios" : self.send,
                         "Total" : self.total},sendfile)
                     sendfile.close()
-                shutil.copy2(f"cuentas\{self.carpeta}\{self.filename}",f".cuentas_resp\{self.carpeta}")
+                shutil.copy2(f"cuentas/{self.carpeta}/{self.filename}",f".cuentas_resp/{self.carpeta}")
             else:
-                os.mkdir(f"cuentas\{self.carpeta}")
-                os.mkdir(f".cuentas_resp\{self.carpeta}")
+                os.mkdir(f"cuentas/{self.carpeta}")
+                os.mkdir(f".cuentas_resp/{self.carpeta}")
                 self.mandar_cuenta()
             self.ui.paciente_le.clear()
             self.send.clear()
@@ -180,7 +180,7 @@ class ConsWindow:
         #while True: 
         try: 
             # Reading file and sending data to server 
-            fi = open(f"cuentas\{self.carpeta}\{self.filename}", "r") 
+            fi = open(f"cuentas/{self.carpeta}/{self.filename}", "r") 
             data = fi.read() 
             #if not data: 
             #    break

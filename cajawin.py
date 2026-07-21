@@ -125,8 +125,7 @@ class muestra_nota(QWidget):
         self.datos.append(producto)
         self.redibujar_tabla()
 
-    def calcular_Total(self):
-        return sum(p["Precio"] for p in self.datos)
+
 
     
 

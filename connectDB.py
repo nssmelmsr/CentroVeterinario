@@ -3,7 +3,7 @@ import configparser
 
 def conectarDB():
     reader = configparser.RawConfigParser()
-    reader.read(".myinf\.my.cnf")
+    reader.read(".myinf/.my.cnf")
 
     #Conecta a la base de datos MySQL y devuelve la conexión.#
     db = QSqlDatabase.addDatabase("QMYSQL")  # Especificamos el driver de MySQL
