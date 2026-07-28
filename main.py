@@ -52,6 +52,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         elif (self.Login_combobox.currentText() == 'Admin') and (self.Pass_le.text() == "admin.1204"):
             print("conectado como administrador")
+            self.Pass_le.clear()
             self.stackedWidget.setCurrentIndex(3)
 
         else:
