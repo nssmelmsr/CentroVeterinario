@@ -57,7 +57,7 @@
      <string notr="true">background-color:rgb(222, 221, 218)</string>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="Login">
      <property name="autoFillBackground">
@@ -302,7 +302,7 @@
        <string notr="true">background-color:rgb(222, 221, 218);color:black</string>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_venta">
        <attribute name="title">
@@ -1310,31 +1310,6 @@
       <property name="styleSheet">
        <string notr="true">color:black</string>
       </property>
-      <item>
-       <property name="text">
-        <string>Seleccione</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>M.V.Z. Brenda</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>M.V.Z. Janeth</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>M.V.Z. Juan</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>M.V.Z. Angélica</string>
-       </property>
-      </item>
      </widget>
      <widget class="QTableView" name="busca_cuenta">
       <property name="geometry">
@@ -1738,12 +1713,16 @@
         <height>192</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:rgb(192, 191, 188);border-radius:10px;color:black</string>
+      </property>
      </widget>
     </widget>
    </widget>
   </widget>
  </widget>
  <resources>
+  <include location="resources_rc.qrc"/>
   <include location="resources_rc.qrc"/>
   <include location="../../../.designer/backup/resources_rc.qrc"/>
  </resources>

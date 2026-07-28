@@ -18,7 +18,7 @@ class ConsWindow:
         self.total = 0
         self.ips = get_data() 
 
-        self.ui.exit_btn_2.clicked.connect(self.ui.close)    
+        self.ui.exit_btn_2.clicked.connect(self.close_win)    
 
         self.ui.wrong_dr.hide()
         self.ui.wrong_pet.hide()
@@ -32,6 +32,14 @@ class ConsWindow:
         self.carpeta = self.time.strftime("%d_%m_%Y")
         self.filename = "Nota_" + self.time.strftime("%H%M%S") + ".json"
 
+        self.actualizar_vet()
+
+    def actualizar_vet(self):
+        veterinarios = self.ips.get_vet()
+
+        self.ui.mvz_comboBox.clear()
+        self.ui.mvz_comboBox.addItem("Seleccione")
+        self.ui.mvz_comboBox.addItems(veterinarios)
 
     def consul_search(self):
         
@@ -93,6 +101,7 @@ class ConsWindow:
             self.redibujar_tabla()
 
         else:
+            QMessageBox.warning(None, "No hay fila seleccionada para eliminar.")
             print("No hay fila seleccionada para eliminar.")
 
     def add_cuenta(self):#, seleccion):
@@ -118,6 +127,7 @@ class ConsWindow:
             self.redibujar_tabla()
 
         else:
+            QMessageBox.warning(None, "Nada seleccionado")
             print("nada seleccionado")
 
     def redibujar_tabla(self):
@@ -163,7 +173,16 @@ class ConsWindow:
                 os.mkdir(f"cuentas/{self.carpeta}")
                 os.mkdir(f".cuentas_resp/{self.carpeta}")
                 self.mandar_cuenta()
+                
             self.ui.paciente_le.clear()
+            self.ui.mvz_combobox.clear()
+            self.ui.tx_TE.clear()
+            self.ui.tx_TE_2.clear()
+            self.ui.especie_le_.clear()
+            self.ui.raza_le_.clear()
+            self.ui.wrong_dr.hide()
+            self.ui.wrong_pet.hide()
+            self.ui.mvz_comboBox.currentIndex(0)
             self.send.clear()
             print(self.filename)
 
@@ -191,5 +210,19 @@ class ConsWindow:
            # fi.close() 
             #exit()
         except IOError:
+            QMessageBox.warning(None, "No se encontró el archivo")
             print('no se encontró el archivo')
         #sock.close()
+
+    def close_win(self):
+        self.ui.stackedWidget.setCurrentIndex(0)
+        self.ui.paciente_le.clear()
+        self.ui.mvz_combobox.clear()
+        self.ui.tx_TE.clear()
+        self.ui.tx_TE_2.clear()
+        self.ui.especie_le_.clear()
+        self.ui.raza_le_.clear()
+        self.ui.wrong_dr.hide()
+        self.ui.wrong_pet.hide()
+        self.ui.mvz_comboBox.currentIndex(0)
+        self.send.clear()

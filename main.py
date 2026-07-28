@@ -26,7 +26,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.login_btn.clicked.connect(self.check_login)
         self.exit_btn.clicked.connect(self.close)
-        self.exit_btn_2.clicked.connect(self.close)
+        #self.exit_btn_2.clicked.connect(self.close)
         
 
         #self.caja_win.close_connections()

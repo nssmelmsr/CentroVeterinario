@@ -191,6 +191,7 @@ class caja_win(QObject):
         self.ui.inv_comboBox.currentIndexChanged.connect(self.inventario)
         self.ui.inv_le.textChanged.connect(self.inventario)
         self.ui.venta_btn.clicked.connect(self.nueva_venta)
+        self.ui.exit_btn_3.clicked.connect(self.ui.close)
 
         self.ui.inv_le_2.textChanged.connect(self.busqueda)
         self.ui.inv_comboBox_2.currentIndexChanged.connect(self.busqueda)
@@ -198,7 +199,7 @@ class caja_win(QObject):
         self.ui.tab_caja.currentChanged.connect(self._on_tab_changed)
         
 
-        self.receiver = TCPReceiver()#self.host, self.port)
+        self.receiver = TCPReceiver()
         self.receiver.archivo_recibido.connect(self.procesar_archivo)
         self.receiver.start()
 
@@ -284,10 +285,10 @@ class caja_win(QObject):
     def nueva_venta(self):
 
         datos = { 
-            "paciente": "N/A",
-            "medico": "N/A",
+            "Paciente": "N/A",
+            "Médico": "N/A",
             "Total": 0,
-            "servicios": []
+            "Servicios": []
         }
         nueva_nota = muestra_nota(datos)
         #nueva_nota.recibir_prod.connect(self.enviar_a_cuenta)
@@ -301,50 +302,49 @@ class caja_win(QObject):
 
     def busqueda(self):
         #self.cuenta_Widget = muestra_nota(self.datos)
-        if self.ui.inv_le_2.text() == '':
+        if not self.ui.inv_le_2.text():
             self.ui.table_busq.hide()
-        table_select_c = self.ui.inv_comboBox_2.currentText()
-        search_value_c = self.ui.inv_le_2.text()
-
-        self.ui.table_busq.setSelectionMode(QAbstractItemView.SingleSelection)
-        self.ui.table_busq.setSelectionBehavior(QAbstractItemView.SelectRows)
-        #self.ui.table_cuenta.setSelectionMode(QAbstractItemView.SingleSelection)        ##tabla de nota
-        #self.ui.table_cuenta.setSelectionBehavior(QAbstractItemView.SelectRows)         ##
-        self.ui.table_busq.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-
-        self.ui.modelo_caja = QtSql.QSqlQueryModel()
-        if table_select_c == "productos":
-            self.ui.modelo_caja.setQuery(f"SELECT CB,producto,stock,precio FROM productos where producto like '%{search_value_c}%' or CB like '%{search_value_c}%';")  # Consulta SQL
-            self.ui.table_busq.horizontalHeader().setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
-            self.ui.table_busq.horizontalHeader().setSectionResizeMode(1, QtWidgets.QHeaderView.ResizeMode.Stretch)
-            self.ui.table_busq.horizontalHeader().setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
-            self.ui.table_busq.horizontalHeader().setSectionResizeMode(3, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
-
-            self.ui.modelo_caja.setHeaderData(0, Qt.Horizontal, "Código")
-            self.ui.modelo_caja.setHeaderData(1, Qt.Horizontal, "Producto")                
-            self.ui.modelo_caja.setHeaderData(2, Qt.Horizontal, "Stock")
-            self.ui.modelo_caja.setHeaderData(3, Qt.Horizontal, "Precio")
-            
-        elif table_select_c == "servicios":
-            self.ui.modelo_caja.setQuery(f"SELECT id, producto as Servicio,precio as Precio FROM servicios where producto like '%{search_value_c}%';")  # Consulta SQL
-            self.ui.table_busq.horizontalHeader().setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeMode.ResizeToContents) 
-            self.ui.table_busq.horizontalHeader().setSectionResizeMode(1, QtWidgets.QHeaderView.ResizeMode.Stretch)
-            self.ui.table_busq.horizontalHeader().setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)  
-
-            self.ui.modelo_caja.setHeaderData(0, Qt.Horizontal, "ID")
-            self.ui.modelo_caja.setHeaderData(1, Qt.Horizontal, "Servico")
-            self.ui.modelo_caja.setHeaderData(2, Qt.Horizontal, "Precio")       
-
-        if self.ui.modelo_caja.lastError().isValid():
-            print("Error SQL:", self.ui.modelo_caja.lastError().text())
-        if self.ui.table_busq:
-            self.ui.table_busq.setModel(self.ui.modelo_caja)
-            self.ui.table_busq.show()
         else:
-            print("Error: no se encontró la tabla")
+            table_select_c = self.ui.inv_comboBox_2.currentText()
+            search_value_c = self.ui.inv_le_2.text()
 
+            self.ui.table_busq.setSelectionMode(QAbstractItemView.SingleSelection)
+            self.ui.table_busq.setSelectionBehavior(QAbstractItemView.SelectRows)
+            self.ui.table_busq.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
+            self.ui.modelo_caja = QtSql.QSqlQueryModel()
+            if table_select_c == "productos":
+                self.ui.modelo_caja.setQuery(f"SELECT CB,producto,stock,precio FROM productos where producto like '%{search_value_c}%' or CB like '%{search_value_c}%';")  # Consulta SQL
+                self.ui.table_busq.horizontalHeader().setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+                self.ui.table_busq.horizontalHeader().setSectionResizeMode(1, QtWidgets.QHeaderView.ResizeMode.Stretch)
+                self.ui.table_busq.horizontalHeader().setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+                self.ui.table_busq.horizontalHeader().setSectionResizeMode(3, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
 
+                self.ui.modelo_caja.setHeaderData(0, Qt.Horizontal, "Código")
+                self.ui.modelo_caja.setHeaderData(1, Qt.Horizontal, "Producto")                
+                self.ui.modelo_caja.setHeaderData(2, Qt.Horizontal, "Stock")
+                self.ui.modelo_caja.setHeaderData(3, Qt.Horizontal, "Precio")
+            
+            elif table_select_c == "servicios":
+                self.ui.modelo_caja.setQuery(f"SELECT id, producto as Servicio,precio as Precio FROM servicios where producto like '%{search_value_c}%';")  # Consulta SQL
+                self.ui.table_busq.horizontalHeader().setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeMode.ResizeToContents) 
+                self.ui.table_busq.horizontalHeader().setSectionResizeMode(1, QtWidgets.QHeaderView.ResizeMode.Stretch)
+                self.ui.table_busq.horizontalHeader().setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)  
+
+                self.ui.modelo_caja.setHeaderData(0, Qt.Horizontal, "ID")
+                self.ui.modelo_caja.setHeaderData(1, Qt.Horizontal, "Servico")
+                self.ui.modelo_caja.setHeaderData(2, Qt.Horizontal, "Precio")       
+        
+
+            if self.ui.modelo_caja.lastError().isValid():
+                print("Error SQL:", self.ui.modelo_caja.lastError().text())
+            if self.ui.table_busq:
+                self.ui.table_busq.setModel(self.ui.modelo_caja)
+                self.ui.table_busq.show()
+            else:
+                print("Error: no se encontró la tabla")
+        
+        
     def _on_tab_changed(self, idx):
         if self.ui.tab_caja.widget(idx) is self.ui.faltantes_tab:
             self.faltantes()
