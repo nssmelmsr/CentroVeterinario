@@ -3,7 +3,7 @@ para interfaz gráfica.
 
 ## V0.45
 
-Se pueden agregar y quitar doctores en ventana admin
+ Se pueden agregar y quitar doctores en ventana admin
 
 ## Configuración previa
 
@@ -17,17 +17,17 @@ Se pueden agregar y quitar doctores en ventana admin
     "veterinarios": []
  }
 
-IP_caja: la ip del equipo que servira de caja 
+ IP_caja: la ip del equipo que servira de caja 
 
 
 # .my.cnf deberá tener el formato:
 
-[client]
-user = tuUser
-password = TuContraseña
-host = tuHost
+ [client]
+ user = tuUser
+ password = TuContraseña
+ host = tuHost
 
-[mysql]
-database = tuBaseDeDatos
+ [mysql]
+ database = tuBaseDeDatos
 
 

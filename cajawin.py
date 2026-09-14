@@ -1,6 +1,6 @@
 from PySide6.QtCore import Qt, QThread, Signal, QObject, Slot
 from PySide6.QtWidgets import *
-from PySide6 import QtSql,QtWidgets
+from PySide6 import QtSql,QtWidgets, QtCore
 from PySide6.QtGui import QStandardItemModel, QStandardItem
 from cuentaWidget import Ui_cuenta_view
 from getinfo import get_data
@@ -51,6 +51,7 @@ class muestra_nota(QWidget):
     def cuenta_final(self):
         if self.ui.tarjCheckBox.isChecked() or self.ui.efeCheckBox.isChecked():
             self.guardar_nota()
+            self.update_stock()
         else: 
             print("seleccione método de pago")
             aviso = QMessageBox(self)
@@ -58,6 +59,10 @@ class muestra_nota(QWidget):
             aviso.setText("Se requiere método de pago")
             aviso.exec()
             return
+
+    def update_stock(self):
+        print ("coming soon")
+        
 
     def guardar_nota(self):
 
@@ -270,7 +275,7 @@ class caja_win(QObject):
                 if hasattr(self.ui, "HLayout") and isinstance(self.ui.HLayout, QHBoxLayout):
                     self.ui.HLayout.addWidget(nueva_nota)
                 else:
-                    print("⚠️ Error: HLayout no es un QHBoxLayout válido o no existe en el .ui")
+                    print("Error: HLayout no es un QHBoxLayout válido o no existe en el .ui")
 
  
                 ########################### bloque de prueba
@@ -278,7 +283,7 @@ class caja_win(QObject):
             #self.ui.HLayout.addWidget(self.widget_nota)  # Agrega el widget al layout
 
         except Exception as e:
-            print(f"⚠️ Error al procesar el archivo {ruta}: {e}")
+            print(f"Error al procesar el archivo {ruta}: {e}")
 
 
 
@@ -351,32 +356,58 @@ class caja_win(QObject):
 
 
     def faltantes(self):
-        self.ui.table_falt.horizontalHeader().setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeMode.Stretch)
-        self.ui.table_falt.horizontalHeader().setSectionResizeMode(1, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
-        self.ui.table_falt.horizontalHeader().setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
-        self.ui.table_falt.horizontalHeader().setSectionResizeMode(3, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
 
-        self.ui.table_falt.setSelectionMode(QAbstractItemView.SingleSelection)
-        self.ui.table_falt.setSelectionBehavior(QAbstractItemView.SelectRows)        
-        
         self.modelo_falt = QtSql.QSqlQueryModel()
-        # Personalizar los encabezados de las columnas
-        self.modelo_falt.setHeaderData(0, Qt.Horizontal, "Producto")
-        self.modelo_falt.setHeaderData(1, Qt.Horizontal, "Faltantes")
-        self.modelo_falt.setHeaderData(2, Qt.Horizontal, "Proveedor")
-        self.modelo_falt.setHeaderData(3, Qt.Horizontal, "Teléfono")
+
+        self.modelo_falt.setQuery("""
+                    SELECT
+                        prd.CB,
+                        prd.producto,
+                        prd.stock_max - prd.stock AS faltantes,
+                        lab.nombre AS laboratorio,
+                        'Ver proveedores' AS proveedores,
+                        prd.laboratorio
+                    FROM productos prd
+                    JOIN laboratorios lab
+                        ON prd.laboratorio = lab.id
+                    WHERE prd.stock < prd.stock_min;
+                """)
+
+        if self.modelo_falt.lastError().isValid():
+            print("Error SQL:", self.modelo_falt.lastError().text())
 
         if self.ui.table_falt:
             self.ui.table_falt.setModel(self.modelo_falt)
         else:
             print("Error: no se encontró la tabla")
-        
-        self.modelo_falt.setQuery("select prd.producto, prd.stock_max-prd.stock as faltantes, pv.nombre, pv.tel_contacto from proveedores pv right join productos prd on pv.id = prd.proveedor;")  # Consulta SQL
-        
-        if self.modelo_falt.lastError().isValid():
-            print("Error SQL:", self.modelo_falt.lastError().text())
+
+        # Personalizar los encabezados de las columnas
+
+        self.modelo_falt.setHeaderData(0, Qt.Horizontal, "Código")
+        self.modelo_falt.setHeaderData(1, Qt.Horizontal, "Producto")
+        self.modelo_falt.setHeaderData(2, Qt.Horizontal, "Faltantes")
+        self.modelo_falt.setHeaderData(3, Qt.Horizontal, "Laboratorio")
+        self.modelo_falt.setHeaderData(4, Qt.Horizontal, "Proveedores")
 
 
+        self.ui.table_falt.horizontalHeader().setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)    # Códdigo
+        self.ui.table_falt.horizontalHeader().setSectionResizeMode(1, QtWidgets.QHeaderView.ResizeMode.Stretch)             # Producto
+        self.ui.table_falt.horizontalHeader().setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)    # Faltantes
+        self.ui.table_falt.horizontalHeader().setSectionResizeMode(3, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)    # Laboratorio
+        self.ui.table_falt.horizontalHeader().setSectionResizeMode(4, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)    # Proveedor
+
+        self.ui.table_falt.setSelectionMode(QAbstractItemView.SingleSelection)
+        self.ui.table_falt.setSelectionBehavior(QAbstractItemView.SelectRows)        
+        
+
+        # Ocultamos el ID del laboratorio
+        self.ui.table_falt.setColumnHidden(5, True)
+
+        # Delegate para el botón
+        delegate = BotonProveedoresDelegate(self, self.ui.table_falt)
+
+        self.ui.table_falt.setItemDelegateForColumn(4, delegate)
+                
 
 
 
@@ -415,3 +446,151 @@ class caja_win(QObject):
             self.ui.table_inv.setModel(self.modelo_inv)
         else:
             print("Error: no se encontró la tabla")
+    def mostrar_proveedores(self, fila):
+    
+            # Obtener ID del laboratorio de la columna oculta
+            laboratorio_id = self.modelo_falt.index(fila, 5).data()
+            
+            # Obtener nombre del laboratorio
+            laboratorio_nombre = self.modelo_falt.index(fila, 3).data()
+            
+            query = QtSql.QSqlQuery()
+            
+            query.prepare("""
+                SELECT
+                    pv.nombre,
+                    pv.telefono
+                FROM proveedores pv
+                JOIN proveedor_laboratorio pl
+                    ON pv.id = pl.proveedor_id
+                WHERE pl.laboratorio_id = ?
+                ORDER BY pv.nombre;
+            """)
+            
+            query.addBindValue(laboratorio_id)
+            
+            if not query.exec():
+                print("Error SQL:", query.lastError().text())
+                return
+            
+            # Crear ventana
+            dialog = QtWidgets.QDialog(None)
+            
+            dialog.setWindowTitle(
+                f"Proveedores de {laboratorio_nombre}"
+            )
+            
+            dialog.resize(450, 300)
+            
+            # Layout
+            layout = QtWidgets.QVBoxLayout(dialog)
+            
+            # Tabla
+            tabla = QtWidgets.QTableWidget()
+            
+            tabla.setColumnCount(2)
+            
+            tabla.setHorizontalHeaderLabels([
+                "Proveedor",
+                "Teléfono"
+            ])
+            
+            tabla.setEditTriggers(
+                QtWidgets.QAbstractItemView.EditTrigger.NoEditTriggers
+            )
+            
+            tabla.setSelectionBehavior(
+                QtWidgets.QAbstractItemView.SelectionBehavior.SelectRows
+            )
+            
+            tabla.setSelectionMode(
+                QtWidgets.QAbstractItemView.SelectionMode.SingleSelection
+            )
+            
+            # Llenar tabla
+            while query.next():
+                
+                fila_tabla = tabla.rowCount()
+            
+                tabla.insertRow(fila_tabla)
+            
+                tabla.setItem(
+                    fila_tabla,
+                    0,
+                    QtWidgets.QTableWidgetItem(
+                        query.value(0)
+                    )
+                )
+            
+                tabla.setItem(
+                    fila_tabla,
+                    1,
+                    QtWidgets.QTableWidgetItem(
+                        query.value(1)
+                    )
+                )
+            
+            # Ajustar columnas
+            tabla.horizontalHeader().setSectionResizeMode(
+                0,
+                QtWidgets.QHeaderView.ResizeMode.Stretch
+            )
+            
+            tabla.horizontalHeader().setSectionResizeMode(
+                1,
+                QtWidgets.QHeaderView.ResizeMode.ResizeToContents
+            )
+            
+            layout.addWidget(tabla)
+            
+            # Botón cerrar
+            boton_cerrar = QtWidgets.QPushButton("Cerrar")
+            
+            boton_cerrar.clicked.connect(
+                dialog.accept
+            )
+            
+            layout.addWidget(boton_cerrar)
+            
+            # Mostrar
+            dialog.exec()
+
+class BotonProveedoresDelegate(QtWidgets.QStyledItemDelegate):
+
+    def __init__(self, ventana, parent=None):
+        super().__init__(parent)
+        self.ventana = ventana
+
+        self.falt_btn = QtWidgets.QPushButton()
+        self.falt_btn.setStyleSheet(
+            "background-color: rgb(53, 132, 228); "
+            "color: rgb(246, 245, 244); "
+            "border-radius: 10px;"
+        )
+
+    def paint(self, painter, option, index):
+
+        rect = option.rect.adjusted(3, 3, -3, -3)
+        self.falt_btn.setText("Ver proveedores")
+        self.falt_btn.resize(rect.size())
+        
+        painter.save()
+        # Trasladamos el origen del dibujante a la esquina superior izquierda del área del botón
+        painter.translate(rect.topLeft())
+        
+        # Agregamos QtCore.QPoint() como segundo argumento para PySide6
+        self.falt_btn.render(painter, QtCore.QPoint())
+        
+        painter.restore()
+
+
+    def editorEvent(self, event, model, option, index):
+        if event.type() == QtCore.QEvent.Type.MouseButtonRelease:
+            if event.button() == QtCore.Qt.MouseButton.LeftButton:
+                rect = option.rect.adjusted(3, 3, -3, -3)
+                if rect.contains(event.pos()):
+                    self.ventana.mostrar_proveedores(index.row())
+                    return True
+        return False
+
+    

@@ -57,7 +57,7 @@
      <string notr="true">background-color:rgb(222, 221, 218)</string>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="Login">
      <property name="autoFillBackground">
@@ -302,7 +302,7 @@
        <string notr="true">background-color:rgb(222, 221, 218);color:black</string>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_venta">
        <attribute name="title">
@@ -412,6 +412,288 @@
           <width>491</width>
           <height>211</height>
          </rect>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="faltantes_tab">
+       <attribute name="title">
+        <string>Faltantes</string>
+       </attribute>
+       <widget class="QTableView" name="table_falt">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>80</y>
+          <width>1161</width>
+          <height>571</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tab_estetica">
+       <attribute name="title">
+        <string>Estética</string>
+       </attribute>
+       <widget class="QScrollArea" name="contenedor_esetetica">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>130</y>
+          <width>1161</width>
+          <height>471</height>
+         </rect>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="scrollAreaWidgetContents_2">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>1159</width>
+           <height>469</height>
+          </rect>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QPushButton" name="add_estetica_btn">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>90</y>
+          <width>131</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color:rgb(53, 132, 228); color: rgb(246, 245, 244); border-radius:10px;</string>
+        </property>
+        <property name="text">
+         <string>Añadir</string>
+        </property>
+        <property name="shortcut">
+         <string>Return</string>
+        </property>
+        <property name="autoRepeat">
+         <bool>false</bool>
+        </property>
+        <property name="default">
+         <bool>false</bool>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_8">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>81</width>
+          <height>17</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Mascota(s):</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>30</y>
+          <width>151</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_2">
+        <property name="geometry">
+         <rect>
+          <x>180</x>
+          <y>30</y>
+          <width>181</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_9">
+        <property name="geometry">
+         <rect>
+          <x>180</x>
+          <y>10</y>
+          <width>66</width>
+          <height>17</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Teléfono:</string>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="checkBox">
+        <property name="geometry">
+         <rect>
+          <x>410</x>
+          <y>30</y>
+          <width>71</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Baño</string>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="checkBox_2">
+        <property name="geometry">
+         <rect>
+          <x>410</x>
+          <y>60</y>
+          <width>71</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Corte</string>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="checkBox_3">
+        <property name="geometry">
+         <rect>
+          <x>520</x>
+          <y>30</y>
+          <width>81</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Vacunas</string>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="checkBox_4">
+        <property name="geometry">
+         <rect>
+          <x>520</x>
+          <y>60</y>
+          <width>131</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Desparasitación</string>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="checkBox_5">
+        <property name="geometry">
+         <rect>
+          <x>520</x>
+          <y>90</y>
+          <width>81</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Consulta</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="add_estetica_btn_2">
+        <property name="geometry">
+         <rect>
+          <x>1000</x>
+          <y>610</y>
+          <width>131</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color:rgb(53, 132, 228); color: rgb(246, 245, 244); border-radius:10px;</string>
+        </property>
+        <property name="text">
+         <string>Quitar</string>
+        </property>
+        <property name="shortcut">
+         <string>Return</string>
+        </property>
+        <property name="autoRepeat">
+         <bool>false</bool>
+        </property>
+        <property name="default">
+         <bool>false</bool>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="checkBox_6">
+        <property name="geometry">
+         <rect>
+          <x>690</x>
+          <y>60</y>
+          <width>81</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Pagado</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_10">
+        <property name="geometry">
+         <rect>
+          <x>900</x>
+          <y>20</y>
+          <width>131</width>
+          <height>17</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Notas Adicionales:</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_3">
+        <property name="geometry">
+         <rect>
+          <x>790</x>
+          <y>50</y>
+          <width>351</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string/>
         </property>
        </widget>
       </widget>
@@ -714,288 +996,6 @@
         </property>
         <property name="default">
          <bool>false</bool>
-        </property>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="faltantes_tab">
-       <attribute name="title">
-        <string>Faltantes</string>
-       </attribute>
-       <widget class="QTableWidget" name="tableWidget">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>80</y>
-          <width>1161</width>
-          <height>571</height>
-         </rect>
-        </property>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="tab_estetica">
-       <attribute name="title">
-        <string>Estética</string>
-       </attribute>
-       <widget class="QScrollArea" name="contenedor_esetetica">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>130</y>
-          <width>1161</width>
-          <height>471</height>
-         </rect>
-        </property>
-        <property name="widgetResizable">
-         <bool>true</bool>
-        </property>
-        <widget class="QWidget" name="scrollAreaWidgetContents_2">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>0</y>
-           <width>1159</width>
-           <height>469</height>
-          </rect>
-         </property>
-        </widget>
-       </widget>
-       <widget class="QPushButton" name="add_estetica_btn">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>90</y>
-          <width>131</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="autoFillBackground">
-         <bool>false</bool>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color:rgb(53, 132, 228); color: rgb(246, 245, 244); border-radius:10px;</string>
-        </property>
-        <property name="text">
-         <string>Añadir</string>
-        </property>
-        <property name="shortcut">
-         <string>Return</string>
-        </property>
-        <property name="autoRepeat">
-         <bool>false</bool>
-        </property>
-        <property name="default">
-         <bool>false</bool>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_8">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>10</y>
-          <width>81</width>
-          <height>17</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Mascota(s):</string>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="lineEdit">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>30</y>
-          <width>151</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="lineEdit_2">
-        <property name="geometry">
-         <rect>
-          <x>180</x>
-          <y>30</y>
-          <width>181</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_9">
-        <property name="geometry">
-         <rect>
-          <x>180</x>
-          <y>10</y>
-          <width>66</width>
-          <height>17</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Teléfono:</string>
-        </property>
-       </widget>
-       <widget class="QCheckBox" name="checkBox">
-        <property name="geometry">
-         <rect>
-          <x>410</x>
-          <y>30</y>
-          <width>71</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Baño</string>
-        </property>
-       </widget>
-       <widget class="QCheckBox" name="checkBox_2">
-        <property name="geometry">
-         <rect>
-          <x>410</x>
-          <y>60</y>
-          <width>71</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Corte</string>
-        </property>
-       </widget>
-       <widget class="QCheckBox" name="checkBox_3">
-        <property name="geometry">
-         <rect>
-          <x>520</x>
-          <y>30</y>
-          <width>81</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Vacunas</string>
-        </property>
-       </widget>
-       <widget class="QCheckBox" name="checkBox_4">
-        <property name="geometry">
-         <rect>
-          <x>520</x>
-          <y>60</y>
-          <width>131</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Desparasitación</string>
-        </property>
-       </widget>
-       <widget class="QCheckBox" name="checkBox_5">
-        <property name="geometry">
-         <rect>
-          <x>520</x>
-          <y>90</y>
-          <width>81</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Consulta</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="add_estetica_btn_2">
-        <property name="geometry">
-         <rect>
-          <x>1000</x>
-          <y>610</y>
-          <width>131</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="autoFillBackground">
-         <bool>false</bool>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color:rgb(53, 132, 228); color: rgb(246, 245, 244); border-radius:10px;</string>
-        </property>
-        <property name="text">
-         <string>Quitar</string>
-        </property>
-        <property name="shortcut">
-         <string>Return</string>
-        </property>
-        <property name="autoRepeat">
-         <bool>false</bool>
-        </property>
-        <property name="default">
-         <bool>false</bool>
-        </property>
-       </widget>
-       <widget class="QCheckBox" name="checkBox_6">
-        <property name="geometry">
-         <rect>
-          <x>690</x>
-          <y>60</y>
-          <width>81</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Pagado</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_10">
-        <property name="geometry">
-         <rect>
-          <x>900</x>
-          <y>20</y>
-          <width>131</width>
-          <height>17</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Notas Adicionales:</string>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="lineEdit_3">
-        <property name="geometry">
-         <rect>
-          <x>790</x>
-          <y>50</y>
-          <width>351</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string/>
         </property>
        </widget>
       </widget>
@@ -1724,7 +1724,7 @@
  <resources>
   <include location="resources_rc.qrc"/>
   <include location="resources_rc.qrc"/>
-  <include location="../../../.designer/backup/resources_rc.qrc"/>
+  <include location="resources_rc.qrc"/>
  </resources>
  <connections/>
 </ui>
