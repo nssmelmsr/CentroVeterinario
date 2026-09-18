@@ -49,19 +49,75 @@ class muestra_nota(QWidget):
 
 
     def cuenta_final(self):
-        if self.ui.tarjCheckBox.isChecked() or self.ui.efeCheckBox.isChecked():
-            self.guardar_nota()
-            self.update_stock()
-        else: 
+        if not (
+            self.ui.tarjCheckBox.isChecked()
+            or self.ui.efeCheckBox.isChecked()
+        ):
             print("seleccione método de pago")
+
             aviso = QMessageBox(self)
             aviso.setWindowTitle("¡Atención!")
             aviso.setText("Se requiere método de pago")
             aviso.exec()
+
             return
 
+        # Primero actualizar stock
+        if not self.update_stock():
+            aviso = QMessageBox(self)
+            aviso.setWindowTitle("Error")
+            aviso.setText(
+                "No se pudo actualizar el inventario.\n"
+                "La venta no se ha completado."
+            )
+            aviso.exec()
+
+            return
+
+        # Si todo salió bien, guardar la nota
+        self.guardar_nota()
+
+
+
     def update_stock(self):
-        print ("coming soon")
+
+        cantidades = {}
+
+        # Contar productos vendidos
+        for item in self.datos:
+
+            if item.get("Tipo") != "producto":
+                continue
+
+            product_id = item["ID"]
+
+            if product_id not in cantidades:
+                cantidades[product_id] = 0
+
+            cantidades[product_id] += 1
+
+        # Actualizar BD
+        query = QtSql.QSqlQuery()
+
+        query.prepare("""
+            UPDATE productos
+            SET stock = stock - ?
+            WHERE id = ?
+        """)
+
+        for product_id, cantidad in cantidades.items():
+
+            query.bindValue(0, cantidad)
+            query.bindValue(1, product_id)
+
+            if not query.exec():
+                print(
+                    "Error al actualizar stock:",
+                    query.lastError().text()
+                )
+                return False
+
+        return True
         
 
     def guardar_nota(self):
@@ -220,20 +276,33 @@ class caja_win(QObject):
         if seleccion.hasSelection():
             self.fila = seleccion.selectedIndexes()[0].row()
             if table_select_c  == "productos":
-                code = self.ui.modelo_caja.index(self.fila,0).data()
-                product = self.ui.modelo_caja.index(self.fila,1).data()
-                price = self.ui.modelo_caja.index(self.fila,3).data() 
+                product_id = self.ui.modelo_caja.index(self.fila, 0).data()
+                code = self.ui.modelo_caja.index(self.fila,1).data()
+                product = self.ui.modelo_caja.index(self.fila,2).data()
+                price = self.ui.modelo_caja.index(self.fila,4).data() 
+
+
+                producto = {
+                    "ID": product_id,
+                    "Code": code,
+                    "Item": product,
+                    "Precio": float(price),
+                    "Tipo": "producto"
+                }
+
             elif table_select_c  == "servicios":
-                code = self.ui.modelo_caja.index(self.fila,0).data()
+                service_id = self.ui.modelo_caja.index(self.fila,0).data()
                 product = self.ui.modelo_caja.index(self.fila,1).data()
                 price = self.ui.modelo_caja.index(self.fila,2).data() 
 
-    
-            producto = {
-                "Code" : code,
-                "Item" : product,
-                "Precio" : float(price)
-            }
+                producto = {
+                    "ID": service_id,
+                    "Code": service_id,
+                    "Item": product,
+                    "Precio": float(price),
+                    "Tipo": "servicio"
+                }
+
 
             widget.agregar_producto(producto)
         else:
@@ -319,16 +388,20 @@ class caja_win(QObject):
 
             self.ui.modelo_caja = QtSql.QSqlQueryModel()
             if table_select_c == "productos":
-                self.ui.modelo_caja.setQuery(f"SELECT CB,producto,stock,precio FROM productos where producto like '%{search_value_c}%' or CB like '%{search_value_c}%';")  # Consulta SQL
+                self.ui.modelo_caja.setQuery(f"SELECT id, CB,producto,stock,precio FROM productos where producto like '%{search_value_c}%' or CB like '%{search_value_c}%';")  # Consulta SQL
                 self.ui.table_busq.horizontalHeader().setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
-                self.ui.table_busq.horizontalHeader().setSectionResizeMode(1, QtWidgets.QHeaderView.ResizeMode.Stretch)
-                self.ui.table_busq.horizontalHeader().setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+                self.ui.table_busq.horizontalHeader().setSectionResizeMode(1, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+                self.ui.table_busq.horizontalHeader().setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeMode.Stretch)
                 self.ui.table_busq.horizontalHeader().setSectionResizeMode(3, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+                self.ui.table_busq.horizontalHeader().setSectionResizeMode(4, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
 
-                self.ui.modelo_caja.setHeaderData(0, Qt.Horizontal, "Código")
-                self.ui.modelo_caja.setHeaderData(1, Qt.Horizontal, "Producto")                
-                self.ui.modelo_caja.setHeaderData(2, Qt.Horizontal, "Stock")
-                self.ui.modelo_caja.setHeaderData(3, Qt.Horizontal, "Precio")
+                self.ui.modelo_caja.setHeaderData(0, Qt.Horizontal, "ID")
+                self.ui.modelo_caja.setHeaderData(1, Qt.Horizontal, "Código")
+                self.ui.modelo_caja.setHeaderData(2, Qt.Horizontal, "Producto")                
+                self.ui.modelo_caja.setHeaderData(3, Qt.Horizontal, "Stock")
+                self.ui.modelo_caja.setHeaderData(4, Qt.Horizontal, "Precio")
+
+                self.ui.table_busq.setColumnHidden(0, True)
             
             elif table_select_c == "servicios":
                 self.ui.modelo_caja.setQuery(f"SELECT id, producto as Servicio,precio as Precio FROM servicios where producto like '%{search_value_c}%';")  # Consulta SQL
